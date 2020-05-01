@@ -1,0 +1,1 @@
+worker: python boy_command.py
