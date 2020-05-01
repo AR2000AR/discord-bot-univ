@@ -1,1 +1,1 @@
-worker: python boy_command.py
+worker: python bot_command.py
