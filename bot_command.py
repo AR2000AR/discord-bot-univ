@@ -5,14 +5,13 @@ from discord.utils import get
 import youtube_dl
 import os
 import asyncio
-import opus
 
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
 
 client = commands.Bot(command_prefix='!')
 client.remove_command("help")
-discord.opus.load_opus()
+
 masters = (214435319745871872, 258246094788493312, 227497954389393408)
 
 """FONCTION DE COMMANDE VERS LE TEXTE"""
