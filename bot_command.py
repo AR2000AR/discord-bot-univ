@@ -5,7 +5,7 @@ from discord.utils import get
 import youtube_dl
 import os
 import asyncio
-
+import pokebase as pb
 
 
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
@@ -230,6 +230,12 @@ async def leave(ctx):
         await voice.disconnect()
         await ctx.send(f"Déconnécté de {channel}")
 
+
+# pokemon
+@client.command()
+async def pokemon(ctx, name: str):
+    poke_name = pb.pokemon('charmander')
+    print(poke_name)
 
 # gestion de l'erreur en cas de commande inconnue
 @client.event
