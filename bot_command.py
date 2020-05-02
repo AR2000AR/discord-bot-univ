@@ -5,8 +5,7 @@ from discord.utils import get
 import youtube_dl
 import os
 import asyncio
-import pokebase as pb
-
+import pokepy
 
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
@@ -32,8 +31,17 @@ async def help(ctx):
         "|`!ent` - Donne le lien vers l'ENT\n"
         "|`!github` - Donne le lien et les règles du GitHub\n"
         "|`!who` - Fait découvir qui est Roboris Davin\n"
-        "|`!pingmaster` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
+        "|`!pingmaster (demande)` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
+        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!helpadmin` - Not for you the plèbe\n"
+        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "|`!play (titre)` - Connecte le bot au salon où vous êtes et joue le titre demandé\n"
+        "|`!pause` - Met en pause le titre\n"
+        "|`!resume` - Reprend la lecture du titre\n"
+        "|`!volume (nombre)` - Règle le volume\n"
+        "|`!leave` - Arrête le musqie et déconnecte le Bot\n"
+        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "|`!pokemon (nom)` - Donne la fiche pokédex d'un pokémon (nom anglais seulement)\n"
         "------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
@@ -111,6 +119,12 @@ async def pingmaster(ctx, *args):
             await ctx.send("La demande est envoyée aux 3 Masters du Discord")
 
 
+@pingmaster.error
+async def pingmaster_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Précise ta demande tel que : `!pingmaster Ceci est une demande")
+
+
 # situation actuelle
 @client.command()
 async def who(ctx):
@@ -123,7 +137,6 @@ async def who(ctx):
 
 @client.command(aliases=['paly', 'aply', 'plya', 'join'])
 async def play(ctx, *title: str):
-
     # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
     channel = ctx.message.author.voice.channel
     if not channel:
@@ -180,6 +193,12 @@ async def play(ctx, *title: str):
     await ctx.send(f"En train de Jouer `{dic['artist']}`")
 
 
+@play.error
+async def play_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Précise le titre que tu veux jouer")
+
+
 @client.command()
 async def pause(ctx):
     channel = ctx.message.author.voice.channel
@@ -221,6 +240,12 @@ async def volume(ctx, vol: float):
     await ctx.send("Nouveau volume à {}%".format(vol))
 
 
+@volume.error
+async def volume_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Précise le volume aue tu veux définir")
+
+
 @client.command()
 async def leave(ctx):
     channel = ctx.message.author.voice.channel
@@ -234,8 +259,55 @@ async def leave(ctx):
 # pokemon
 @client.command()
 async def pokemon(ctx, name: str):
-    poke_name = pb.pokemon('charmander')
-    print(poke_name)
+    types = []
+    abilities = []
+    poke = []
+    pokespe = []
+
+    try:
+        poke = pokepy.V2Client().get_pokemon(name)
+        pokespe = pokepy.V2Client().get_pokemon_species(name)
+    except:
+        await ctx.send("Pokémon Inconnu")
+        return
+
+    print(poke.name)
+    print(poke.weight)
+    print(poke.height)
+
+    for i in range(len(poke.types)):
+        types.append(poke.types[i].type.name)
+    print(types)
+
+    for i in range(len(poke.abilities)):
+        abilities.append(poke.abilities[i].ability.name)
+    print(abilities)
+    print(poke.id)
+    print(pokespe.flavor_text_entries[5].flavor_text)
+
+    embed = discord.Embed(
+        title=poke.name.capitalize() + "/" + pokespe.names[6].name,
+        description=pokespe.flavor_text_entries[5].flavor_text,
+        colour=discord.Colour.red(),
+    )
+
+    embed.set_image(url=f"https://pokeres.bastionbot.org/images/pokemon/{poke.id}.png")
+    embed.set_author(name="Pokédex",
+                     icon_url="https://cdn.icon-icons.com/icons2/851/PNG/512/Pokedex_icon-icons.com_67530.png")
+    embed.set_thumbnail(url=poke.sprites.front_default, )
+    embed.add_field(name="Types", value="\n".join(types), inline=False)
+    embed.add_field(name="Weight/Height", value=str(poke.weight) + "/" + str(poke.height), inline=True)
+    embed.add_field(name="Abilities", value="\n".join(abilities), inline=True)
+    embed.set_footer(text='Prof. Chen Information')
+
+    await ctx.send(embed=embed)
+
+
+@pokemon.error
+async def pokemon_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Précise le pokémon dont tu veux la fiche")
+
 
 # gestion de l'erreur en cas de commande inconnue
 @client.event
