@@ -6,6 +6,8 @@ import youtube_dl
 import os
 import asyncio
 
+
+
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
 
@@ -120,8 +122,8 @@ async def who(ctx):
 
 
 @client.command()
-async def play(ctx, url: str):
-
+async def play(ctx, *title: str):
+    # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
     channel = ctx.message.author.voice.channel
     if not channel:
         await ctx.send("Connecte toi dans un channel vocal")
@@ -132,11 +134,13 @@ async def play(ctx, url: str):
     else:
         voice = await channel.connect()
 
+    # check si un fichier n'existe pas déjà dans le répertoire
     song_there = os.path.isfile("song.mp3")
 
     if song_there:
         os.remove("song.mp3")
 
+    # option de base pour le dl de la musqiue (modifiable si je trouve des trucs worth)
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [{
@@ -146,9 +150,20 @@ async def play(ctx, url: str):
         }],
     }
 
+    el_title = " ".join(args)
+
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        print("Downloading audio now\n")
-        ydl.download([url])
+        info = ydl.extract_info(f"ytsearch:'{el_title}'",
+                                download=False)
+
+    dic = {
+        'url': info['entries'][0]['webpage_url'],
+        'artist': info['entries'][0]['title']
+    }
+
+    print(dic['url'])
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([dic['url']])
 
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
@@ -156,8 +171,7 @@ async def play(ctx, url: str):
             os.rename(file, 'song.mp3')
 
     player = voice.play(FFmpegPCMAudio("song.mp3"))
-    print(type(player))
-    await ctx.send(f"En train de Jouer !")
+    await ctx.send(f"En train de Jouer {dic['artist']}")
 
 
 @client.command()
