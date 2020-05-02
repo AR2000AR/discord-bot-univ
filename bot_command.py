@@ -121,8 +121,9 @@ async def who(ctx):
 """FONCTION MUSICALE"""
 
 
-@client.command()
+@client.command(aliases=['paly', 'aply', 'plya', 'join'])
 async def play(ctx, *title: str):
+
     # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
     channel = ctx.message.author.voice.channel
     if not channel:
@@ -150,28 +151,33 @@ async def play(ctx, *title: str):
         }],
     }
 
-    el_title = " ".join(title)
+    # je prend le titre je separe cahque arg par un espace
+    title_format = " ".join(title)
 
+    # query sur youtube qui met dans un dict toutes les infomations de la premiere video trouvé
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(f"ytsearch:'{el_title}'",
+        info = ydl.extract_info(f"ytsearch:'{title_format}'",
                                 download=False)
 
+    # je met seulement les informations qui m'intéressse cad le titre et l'url
     dic = {
         'url': info['entries'][0]['webpage_url'],
         'artist': info['entries'][0]['title']
     }
 
-    print(dic['url'])
+    # je dl la video et convertit en mp3
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([dic['url']])
 
+    # je la renomme en song.mp3 affin de pas galerer si on remet une musique
     for file in os.listdir("./"):
         if file.endswith(".mp3"):
             name = file
             os.rename(file, 'song.mp3')
 
+    # je joue la musique et affiche un petit message
     player = voice.play(FFmpegPCMAudio("song.mp3"))
-    await ctx.send(f"En train de Jouer {dic['artist']}")
+    await ctx.send(f"En train de Jouer `{dic['artist']}`")
 
 
 @client.command()
