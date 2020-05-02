@@ -150,7 +150,7 @@ async def play(ctx, *title: str):
         }],
     }
 
-    el_title = " ".join(args)
+    el_title = " ".join(title)
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(f"ytsearch:'{el_title}'",
