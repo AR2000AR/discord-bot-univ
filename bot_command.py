@@ -351,7 +351,7 @@ async def league(ctx, name: str):
         colour=discord.Colour.red(),
     )
 
-    embed_lol.set_image(url=f"http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{name}_0.jpg")
+    embed_lol.set_image(url=f"http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{name}_0.jpg")
     embed_lol.set_author(name="League of IUT",
                      icon_url="https://www.dlf.pt/png/big/25/252235_league-of-legends-logo-png.jpg")
     embed_lol.set_thumbnail(url=f"http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/{name}.png", )
