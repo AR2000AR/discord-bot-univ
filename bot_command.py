@@ -13,8 +13,6 @@ import pokepy
 import requests
 import json
 
-
-
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
 
@@ -34,25 +32,25 @@ async def ping(ctx):
 @client.command()
 async def help(ctx):
     await ctx.send(
-        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!arche` - Donne le lien de arche\n"
         "|`!ent` - Donne le lien vers l'ENT\n"
         "|`!github` - Donne le lien et les règles du GitHub\n"
         "|`!who` - Fait découvir qui est Roboris Davin\n"
         "|`!pingmaster (demande)` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
-        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!helpadmin` - Not for you the plèbe\n"
-        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!play (titre)` - Connecte le bot au salon où vous êtes et joue le titre demandé\n"
         "|`!pause` - Met en pause le titre\n"
         "|`!resume` - Reprend la lecture du titre\n"
         "|`!volume (nombre)` - Règle le volume\n"
         "|`!leave` - Arrête le musqie et déconnecte le Bot\n"
-        "-----------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!pokemon (nom)` - Donne la fiche pokédex d'un pokémon (nom anglais seulement)\n"
         "|`!cat` - Image aléatoire de chat\n"
         "|`!dog` - Image aléatoire de chien\n"
-        "------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
 # commande ! helpadmin
@@ -332,12 +330,15 @@ async def cat(ctx):
     json_data = json.loads(r.text)
     await ctx.send(json_data[0]['url'])
 
+
 @client.command()
 async def dog(ctx):
     r = requests.get('https://dog.ceo/api/breeds/image/random')
 
     json_data = json.loads(r.text)
     await ctx.send(json_data['message'])
+
+
 """GESTION D'EVENEMENT"""
 
 
