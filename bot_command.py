@@ -297,11 +297,11 @@ async def pokemon(ctx, name: str):
         abilities.append(poke.abilities[i].ability.name)
     print(abilities)
     print(poke.id)
-    print(pokespe.flavor_text_entries[5].flavor_text)
+    print(pokespe.flavor_text_entries[6 if name=="pikachu" else 5].flavor_text)
 
     embed = discord.Embed(
         title=poke.name.capitalize() + "/" + pokespe.names[6].name,
-        description=pokespe.flavor_text_entries[5].flavor_text,
+        description=pokespe.flavor_text_entries[6 if name=="pikachu" else 5].flavor_text + " " + pokespe.flavor_text_entries[5].language.name,
         colour=discord.Colour.red(),
     )
 
@@ -338,6 +338,26 @@ async def dog(ctx):
     json_data = json.loads(r.text)
     await ctx.send(json_data['message'])
 
+@client.command()
+async def league(ctx, name: str):
+
+    name.capitalize()
+    r = requests.get(f'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/fr_FR/champion/{name}.json')
+
+    json_data = json.loads(r.text)
+    embed_lol = discord.Embed(
+        title=json_data['data'][name]['name'] + ", " + json_data['data'][name]['title'],
+        description=json_data['data'][name]['lore'],
+        colour=discord.Colour.red(),
+    )
+
+    embed_lol.set_image(url=f"http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{name}_0.jpg")
+    embed_lol.set_author(name="League of IUT",
+                     icon_url="https://www.dlf.pt/png/big/25/252235_league-of-legends-logo-png.jpg")
+    embed_lol.set_thumbnail(url=f"http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/{name}.png", )
+    # embed_lol.add_field(name="Types", value="\n".join(types), inline=False)
+
+    await ctx.send(embed=embed_lol)
 
 """GESTION D'EVENEMENT"""
 
