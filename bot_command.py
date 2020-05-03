@@ -31,6 +31,7 @@ async def ping(ctx):
 
 @client.command()
 async def help(ctx):
+    print("Requête d'aide via !help")
     await ctx.send(
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!arche` - Donne le lien de arche\n"
@@ -58,6 +59,7 @@ async def help(ctx):
 @client.command()
 @commands.has_any_role("Master")
 async def helpadmin(ctx):
+    print("Requête de helpadmin via !helpadmin")
     await ctx.send("-----------------------------------------------------------------------------\n"
                    "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
                    "-----------------------------------------------------------------------------")
@@ -66,6 +68,7 @@ async def helpadmin(ctx):
 # gestion du rôle en cas de non-possesion de master
 @helpadmin.error
 async def helpadmin_error(ctx, error):
+    print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
     if isinstance(error, commands.MissingAnyRole):
         await ctx.send("Tu dois être Master pour utiliser cette commande !")
 
@@ -73,6 +76,7 @@ async def helpadmin_error(ctx, error):
 # commande ! arche
 @client.command()
 async def arche(ctx):
+    print("Requête de lien arche via !arche")
     await ctx.send("----------------------------------------------------------\n"
                    "Voici le lien vers Arche : https://cutt.ly/tygWbO6\n"
                    "----------------------------------------------------------")
@@ -81,6 +85,7 @@ async def arche(ctx):
 # commande ! ent
 @client.command()
 async def ent(ctx):
+    print("Requête de lien de l'ent via !ent")
     await ctx.send("----------------------------------------------------------\n"
                    "Voici le lien vers l'ENT : https://cutt.ly/MygW3Rc\n"
                    "----------------------------------------------------------")
@@ -89,6 +94,7 @@ async def ent(ctx):
 # commande !github
 @client.command()
 async def github(ctx):
+    print("Requête du lien github via !github")
     await ctx.send(
         "-----------------------------------------------------------------------------------------------------------------------------------------\n"
         "                                    Voici le lien vers le GitHub d'aide des INFO : https://cutt.ly/tygWbO6\n"
@@ -100,20 +106,24 @@ async def github(ctx):
 @client.command()
 @commands.has_any_role("Master")
 async def clear(ctx, arg):
+    print("Requête de clear via !clear")
     await ctx.channel.purge(limit=int(arg))
 
 
 @clear.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
+        print("Erreur de requête via !arche : Manque le nombre en argument")
         await ctx.send("Tu dois précisez le nombre de message que tu veux clear ! Exemple : !clear 10")
     if isinstance(error, commands.MissingAnyRole):
+        print("Erreur de requête via !arche : Manque le nombre en argument")
         await ctx.send("Tu dois être Master pour utiliser cette commande !")
 
 
 # ping les master
 @client.command()
 async def pingmaster(ctx, *args):
+    print("Requête d'une demande aux masters via !pingmaster")
     dm = " ".join(args)
     print(dm)
 
@@ -130,6 +140,7 @@ async def pingmaster(ctx, *args):
 
 @pingmaster.error
 async def pingmaster_error(ctx, error):
+    print("Erreur dans la requête !pingmaster : Manque la demande en argument")
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise ta demande tel que : `!pingmaster Ceci est une demande")
 
@@ -137,6 +148,7 @@ async def pingmaster_error(ctx, error):
 # situation actuelle
 @client.command()
 async def who(ctx):
+    print("Requête de description du bot via !who")
     await ctx.send(
         "Je suis Roboris Davin, le bot de ce serveur. Je ne connais absolument ce professeur qui aurait un nom similaire.")
 
@@ -146,6 +158,7 @@ async def who(ctx):
 
 @client.command(aliases=['paly', 'aply', 'plya', 'join'])
 async def play(ctx, *title: str):
+    print(f"Requête de chanson via !play, titre : {title}")
     # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
 
     channel = ctx.message.author.voice.channel
@@ -206,13 +219,16 @@ async def play(ctx, *title: str):
 @play.error
 async def play_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
+        print("Erreur dans la requête via !play : Manque le titre")
         await ctx.send("Précise le titre que tu veux jouer")
     if isinstance(error, commands.CommandInvokeError):
+        print("Erreur dans la requête via !play : Utilisateur n'est pas dans un channel")
         await ctx.send("Tu n'es pas dans un channel ou tu n'a pas précisé de titre")
 
 
 @client.command()
 async def pause(ctx):
+    print("Requête de pause de la chanson via !pause")
     channel = ctx.message.author.voice.channel
     if not channel:
         await ctx.send("Connecte toi dans un channel vocal")
@@ -228,6 +244,7 @@ async def pause(ctx):
 
 @client.command()
 async def resume(ctx):
+    print("Requête de reprise de la chanson via !resume")
     channel = ctx.message.author.voice.channel
     if not channel:
         await ctx.send("Connecte toi dans un channel vocal")
@@ -244,7 +261,7 @@ async def resume(ctx):
 @client.command()
 async def volume(ctx, vol: float):
     """Changer le volume"""
-
+    print("Requête de changement de volume de la chanson via !volume")
     if ctx.voice_client is None:
         return await ctx.send("Je ne suis pas connectée")
 
@@ -254,12 +271,14 @@ async def volume(ctx, vol: float):
 
 @volume.error
 async def volume_error(ctx, error):
+    print("Erreur dans la requête de volume via !volume : Manque le volume en argument")
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Précise le volume aue tu veux définir")
+        await ctx.send("Précise le volume que tu veux définir")
 
 
 @client.command(aliases=['stop'])
 async def leave(ctx):
+    print("Requête de fin de la chanson via !leave")
     channel = ctx.message.author.voice.channel
     voice = get(client.voice_clients, guild=ctx.guild)
 
@@ -274,6 +293,7 @@ async def leave(ctx):
 # pokemon
 @client.command()
 async def pokemon(ctx, name: str):
+    print("Requête de pokémon via !pokemon")
     types = []
     abilities = []
     poke = []
@@ -321,12 +341,14 @@ async def pokemon(ctx, name: str):
 
 @pokemon.error
 async def pokemon_error(ctx, error):
+    print("Erreur dans la requête via !pokemon : Manque le pokemon en argument")
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise le pokémon dont tu veux la fiche")
 
 
 @client.command()
 async def cat(ctx):
+    print("Requête d'image de chat via !cat")
     r = requests.get('https://api.thecatapi.com/v1/images/search')
 
     json_data = json.loads(r.text)
@@ -335,6 +357,7 @@ async def cat(ctx):
 
 @client.command()
 async def dog(ctx):
+    print("Requête d'image de chien via !dog")
     r = requests.get('https://dog.ceo/api/breeds/image/random')
 
     json_data = json.loads(r.text)
@@ -343,6 +366,7 @@ async def dog(ctx):
 
 @client.command(aliases=['ligue'])
 async def league(ctx, name: str):
+    print("Requête de champions de League of Legends via !league")
     name = name.capitalize()
     r = requests.get(f'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/fr_FR/champion/{name}.json')
     json_data = json.loads(r.text)
@@ -367,6 +391,7 @@ async def league(ctx, name: str):
 
 @league.error
 async def league_error(ctx, error):
+    print("Erreur dans la requête via !league : Manque le champion en argument")
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise le champion dont tu veux la fiche !")
 
@@ -376,6 +401,7 @@ async def league_error(ctx, error):
 # gestion de l'erreur en cas de commande inconnue
 @client.event
 async def on_command_error(ctx, error):
+    print("Erreur dans la requête d'une commande : Commande inconnue")
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Commande inexistante ! M. Davin aurait honte de toi !")
     else:
