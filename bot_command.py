@@ -365,6 +365,11 @@ async def league(ctx, name: str):
     await ctx.send(embed=embed_lol)
 
 
+@league.error
+async def league_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Précise le champion dont tu veux la fiche !")
+
 """GESTION D'EVENEMENT"""
 
 
