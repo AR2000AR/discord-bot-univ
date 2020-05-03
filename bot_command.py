@@ -50,6 +50,7 @@ async def help(ctx):
         "|`!pokemon (nom)` - Donne la fiche pokédex d'un pokémon (nom anglais seulement)\n"
         "|`!cat` - Image aléatoire de chat\n"
         "|`!dog` - Image aléatoire de chien\n"
+        "|`!league (champion)` - Information de champion de League of Legends\n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
@@ -257,7 +258,7 @@ async def volume_error(ctx, error):
         await ctx.send("Précise le volume aue tu veux définir")
 
 
-@client.command()
+@client.command(aliases=['stop'])
 async def leave(ctx):
     channel = ctx.message.author.voice.channel
     voice = get(client.voice_clients, guild=ctx.guild)
@@ -340,7 +341,7 @@ async def dog(ctx):
     await ctx.send(json_data['message'])
 
 
-@client.command()
+@client.command(aliases=['ligue'])
 async def league(ctx, name: str):
     name = name.capitalize()
     r = requests.get(f'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/fr_FR/champion/{name}.json')
