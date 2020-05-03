@@ -9,6 +9,7 @@ import pokepy
 import cat
 
 
+
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
 
