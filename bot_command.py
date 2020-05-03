@@ -139,8 +139,6 @@ async def who(ctx):
 async def play(ctx, *title: str):
     # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
 
-    if title == "":
-        await ctx.send("Préciser un titre")
 
     channel = ctx.message.author.voice.channel
     if not channel:
@@ -202,7 +200,8 @@ async def play_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise le titre que tu veux jouer")
     if isinstance(error, commands.CommandInvokeError):
-        await ctx.send("Tu n'es pas dans un channel")
+        await ctx.send("Tu n'es pas dans un channel ou tu n'a pas précisé de titre")
+
 
 
 @client.command()
