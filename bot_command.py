@@ -318,12 +318,11 @@ async def pokemon(ctx, name: str):
         abilities.append(poke.abilities[i].ability.name)
     print(abilities)
     print(poke.id)
-    print(pokespe.flavor_text_entries[6 if name == "pikachu" else 5].flavor_text)
+    print(pokespe.flavor_text_entries[6 if name == "pikachu" or name == "Pikachu" else 5].flavor_text)
 
     embed = discord.Embed(
         title=poke.name.capitalize() + "/" + pokespe.names[6].name,
-        description=pokespe.flavor_text_entries[6 if name == "pikachu" else 5].flavor_text + " " +
-                    pokespe.flavor_text_entries[5].language.name,
+        description=pokespe.flavor_text_entries[6 if name == "pikachu" else 5].flavor_text,
         colour=discord.Colour.red(),
     )
 
@@ -395,6 +394,7 @@ async def league_error(ctx, error):
     print("Erreur dans la requête via !league : Manque le champion en argument")
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise le champion dont tu veux la fiche !")
+
 
 """GESTION D'EVENEMENT"""
 
