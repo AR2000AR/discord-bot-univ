@@ -1,12 +1,17 @@
+# module de base
 import discord
 from discord import FFmpegPCMAudio
 from discord.ext import commands
 from discord.utils import get
+import asyncio
+# fonction musicale (os utile que pour ca atm)
 import youtube_dl
 import os
-import asyncio
+# pokemon
 import pokepy
-import cat
+# cat and dog func
+import requests
+import json
 
 
 
@@ -320,9 +325,17 @@ async def pokemon_error(ctx, error):
 
 @client.command()
 async def cat(ctx):
-    cat.getCat(directory="/cat_image", filename="cat")
-    ctx.send(file=discord.File('cat_image/cat.png'))
+    r = requests.get('https://api.thecatapi.com/v1/images/search')
 
+    json_data = json.loads(r.text)
+    await ctx.send(json_data[0]['url'])
+
+@client.command()
+async def dog(ctx):
+    r = requests.get('https://dog.ceo/api/breeds/image/random')
+
+    json_data = json.loads(r.text)
+    await ctx.send(json_data['message'])
 """GESTION D'EVENEMENT"""
 
 
