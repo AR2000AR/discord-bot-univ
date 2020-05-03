@@ -355,7 +355,11 @@ async def league(ctx, name: str):
     embed_lol.set_author(name="League of IUT",
                          icon_url="https://www.dlf.pt/png/big/25/252235_league-of-legends-logo-png.jpg")
     embed_lol.set_thumbnail(url=f"http://ddragon.leagueoflegends.com/cdn/10.9.1/img/champion/{name}.png", )
-    # embed_lol.add_field(name="Types", value="\n".join(types), inline=False)
+    embed_lol.add_field(name="Passif", value=json_data['data'][name]['passive']['name'], inline=False)
+    embed_lol.add_field(name="Q Spell", value=json_data['data'][name]['spells'][0]['name'], inline=True)
+    embed_lol.add_field(name="W Spell", value=json_data['data'][name]['spells'][1]['name'], inline=True)
+    embed_lol.add_field(name="E Spell", value=json_data['data'][name]['spells'][2]['name'], inline=True)
+    embed_lol.add_field(name="Ultime", value=json_data['data'][name]['spells'][3]['name'], inline=True)
 
     await ctx.send(embed=embed_lol)
 
