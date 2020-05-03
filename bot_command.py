@@ -320,6 +320,7 @@ async def pokemon_error(ctx, error):
 @client.command()
 async def cat(ctx):
     cat.getCat(directory="/cat_image", filename="cat")
+    ctx.send(file=discord.File('cat_image/cat.png'))
 
 """GESTION D'EVENEMENT"""
 
