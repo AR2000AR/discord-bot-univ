@@ -374,7 +374,7 @@ async def league(ctx, name: str):
     embed_lol = discord.Embed(
         title=json_data['data'][name]['name'] + ", " + json_data['data'][name]['title'],
         description=json_data['data'][name]['lore'],
-        colour=discord.Colour.red(),
+        colour=discord.Colour.dark_blue(),
     )
 
     embed_lol.set_image(url=f"http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{name}_0.jpg")
