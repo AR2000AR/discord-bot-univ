@@ -150,7 +150,7 @@ async def pingmaster_error(ctx, error):
 async def who(ctx):
     print("Requête de description du bot via !who")
     await ctx.send(
-        "Je suis Roboris Davin, le bot de ce serveur. Je ne connais absolument ce professeur qui aurait un nom similaire.")
+        "Je suis Roboris Davin, le bot de ce serveur. Je ne connais absolument pas ce professeur qui aurait un nom similaire.")
 
 
 """FONCTION MUSICALE"""
