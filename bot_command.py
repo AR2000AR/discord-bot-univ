@@ -6,6 +6,8 @@ import youtube_dl
 import os
 import asyncio
 import pokepy
+import cat
+
 
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
@@ -139,7 +141,6 @@ async def who(ctx):
 async def play(ctx, *title: str):
     # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
 
-
     channel = ctx.message.author.voice.channel
     if not channel:
         await ctx.send("Connecte toi dans un channel vocal")
@@ -203,7 +204,6 @@ async def play_error(ctx, error):
         await ctx.send("Tu n'es pas dans un channel ou tu n'a pas précisé de titre")
 
 
-
 @client.command()
 async def pause(ctx):
     channel = ctx.message.author.voice.channel
@@ -261,6 +261,9 @@ async def leave(ctx):
         await ctx.send(f"Déconnécté de {channel}")
 
 
+"""FONCTION FUNNY"""
+
+
 # pokemon
 @client.command()
 async def pokemon(ctx, name: str):
@@ -312,6 +315,13 @@ async def pokemon(ctx, name: str):
 async def pokemon_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Précise le pokémon dont tu veux la fiche")
+
+
+@client.command()
+async def cat(ctx):
+    cat.getCat(directory="/cat_image", filename="cat")
+
+"""GESTION D'EVENEMENT"""
 
 
 # gestion de l'erreur en cas de commande inconnue
