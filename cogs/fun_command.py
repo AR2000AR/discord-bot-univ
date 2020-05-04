@@ -59,18 +59,12 @@ class Fun(commands.Cog):
             return
 
         print(poke.name)
-        print(poke.weight)
-        print(poke.height)
 
         for i in range(len(poke.types)):
             types.append(poke.types[i].type.name)
-        print(types)
 
         for i in range(len(poke.abilities)):
             abilities.append(poke.abilities[i].ability.name)
-        print(abilities)
-        print(poke.id)
-        print(pokespe.flavor_text_entries[6 if name == "pikachu" or name == "Pikachu" else 5].flavor_text)
 
         embed = discord.Embed(
             title=poke.name.capitalize() + "/" + pokespe.names[6].name,

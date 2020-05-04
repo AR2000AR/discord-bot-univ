@@ -78,7 +78,8 @@ class Utils(commands.Cog):
             "|`!cat` - Image aléatoire de chat\n"
             "|`!dog` - Image aléatoire de chien\n"
             "|`!league (champion)` - Information de champion de League of Legends\n"
-            "|`!meme` - Meme aléatoire"
+            "|`!meme` - Meme aléatoire\n"
+            "|`!panda` - Image aléatoire de panda\n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
     # commande ! helpadmin
