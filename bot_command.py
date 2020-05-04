@@ -120,7 +120,7 @@ async def appel(ctx, args):
         await ctx.send("Tu n'est pas dans un channel !")
         return
 
-
+    ctx.send(f"Appel dans le channel {channel.name}")
     print("Requête d'appel via !appel")
 
     # recuperer tous les membres d'un groupe
@@ -139,7 +139,10 @@ async def appel(ctx, args):
         if pres.name in list_connected:
             await ctx.send(f"`{pres.nick} ({pres.name})` est présent :green_circle:")
         else:
+            user = client.get_user(pres.id)
+            await user.send('Tu as cours sur discord "COMPUTING UNIVERSITY')
             await ctx.send(f"`{pres.nick} ({pres.name})` est absent :red_circle:")
+
             i += 1
 
     await ctx.send(f"Il y a {i} absent(s)")
@@ -418,6 +421,16 @@ async def dog(ctx):
 
     json_data = json.loads(r.text)
     await ctx.send(json_data['message'])
+
+
+@client.command()
+async def meme(ctx):
+    print("Requête d'image de meme via !meme")
+    r = requests.get('https://meme-api.herokuapp.com/gimme')
+
+    json_data = json.loads(r.text)
+    await ctx.send(json_data['message'])
+
 
 
 @client.command(aliases=['ligue'])
