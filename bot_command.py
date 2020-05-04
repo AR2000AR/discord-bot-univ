@@ -53,6 +53,7 @@ async def help(ctx):
         "|`!cat` - Image aléatoire de chat\n"
         "|`!dog` - Image aléatoire de chien\n"
         "|`!league (champion)` - Information de champion de League of Legends\n"
+        "|`!meme` - Meme aléatoire"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
 
