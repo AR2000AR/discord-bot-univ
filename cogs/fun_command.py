@@ -20,7 +20,7 @@ class Fun(commands.Cog):
         await ctx.send(json_data['link'])
 
     @commands.command()
-    async def cat(ctx):
+    async def cat(self, ctx):
         print("Requête d'image de chat via !cat")
         r = requests.get('https://api.thecatapi.com/v1/images/search')
 
@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         await ctx.send(json_data[0]['url'])
 
     @commands.command()
-    async def dog(ctx):
+    async def dog(self, ctx):
         print("Requête d'image de chien via !dog")
         r = requests.get('https://dog.ceo/api/breeds/image/random')
 
@@ -36,7 +36,7 @@ class Fun(commands.Cog):
         await ctx.send(json_data['message'])
 
     @commands.command()
-    async def meme(ctx):
+    async def meme(self, ctx):
         print("Requête d'image de meme via !meme")
         r = requests.get('https://meme-api.herokuapp.com/gimme')
 
