@@ -74,7 +74,7 @@ class Fun(commands.Cog):
 
         embed = discord.Embed(
             title=poke.name.capitalize() + "/" + pokespe.names[6].name,
-            description=pokespe.flavor_text_entries[6 if name == "pikachu" else 5].flavor_text,
+            description=pokespe.flavor_text_entries[6 if name == "pikachu" or name == "Pikachu" else 5].flavor_text,
             colour=discord.Colour.red(),
         )
 
