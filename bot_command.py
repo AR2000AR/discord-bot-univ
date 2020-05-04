@@ -470,7 +470,7 @@ async def sujet(ctx):
     await the_message.add_reaction("neufUL:706772105194373140")
 
 
-@appel.error
+@sujet.error
 async def sujet_error(ctx, error):
     print("Erreur dans la requête via !sujet : Pas le bon rôle")
     if isinstance(error, commands.MissingAnyRole):
