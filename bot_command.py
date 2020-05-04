@@ -110,9 +110,9 @@ async def appel(ctx, args):
     list_connected = []
     args = args.upper()
 
-    """if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
+    if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
         await ctx.send("C'est pas un groupe !")
-        return"""
+        return
 
     try:
         channel = ctx.message.author.voice.channel
