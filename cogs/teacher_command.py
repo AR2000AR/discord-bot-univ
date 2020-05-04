@@ -25,7 +25,7 @@ class Teacher(commands.Cog):
             await ctx.send("Tu n'est pas dans un channel !")
             return
 
-        ctx.send(f"Appel dans le channel {channel.name}")
+        await ctx.send(f"Appel dans le channel {channel.name}")
         print("Requête d'appel via !appel")
 
         # recuperer tous les membres d'un groupe
