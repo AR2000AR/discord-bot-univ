@@ -93,6 +93,7 @@ class Fun(commands.Cog):
     async def league(self, ctx, name: str):
         print("Requête de champions de League of Legends via !league")
         name = name.replace("'", "")
+        name = name.replace(" ", "")
         # ntm riot
         if name == "Wukong":
             name = "MonkeyKing"
