@@ -108,6 +108,7 @@ async def appel(ctx, args):
     list_group = []
     list_connected = []
     channel = ctx.message.author.voice.channel
+    args = args.upper()
 
     print("Requête d'appel via !appel")
 
@@ -131,6 +132,7 @@ async def appel(ctx, args):
             i += 1
 
     await ctx.send(f"Il y a {i} absent(s)")
+
 
 @appel.error
 async def clear_error(ctx, error):
