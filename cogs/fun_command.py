@@ -94,6 +94,11 @@ class Fun(commands.Cog):
         print("Requête de champions de League of Legends via !league")
         name = name.capitalize()
         name = name.replace("'", "")
+        # ntm riot
+        if name == "Wukong":
+            name = "MonkeyKing"
+
+
         r = requests.get(f'http://ddragon.leagueoflegends.com/cdn/10.9.1/data/fr_FR/champion/{name}.json')
         json_data = json.loads(r.text)
         embed_lol = discord.Embed(
