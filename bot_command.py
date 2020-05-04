@@ -422,10 +422,10 @@ async def dog(ctx):
 @client.command()
 async def meme(ctx):
     print("Requête d'image de meme via !meme")
-    r = requests.get('https://some-random-api.ml/meme')
+    r = requests.get('https://meme-api.herokuapp.com/gimme')
 
     json_data = json.loads(r.text)
-    await ctx.send(json_data['image'])
+    await ctx.send(json_data['url'])
 
 
 
