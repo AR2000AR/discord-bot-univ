@@ -1,17 +1,12 @@
 # module de base
-import discord
-from discord import FFmpegPCMAudio
-from discord.ext import commands
-from discord.utils import get
-import asyncio
 # fonction musicale (os utile que pour ca atm)
 import youtube_dl
 import os
 # pokemon
 import pokepy
 # cat and dog func
-import requests
-import json
+
+from cogs.fun_command import *
 
 TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
 GUILD = "COMPUTING UNVIVERSITY"
@@ -401,31 +396,6 @@ async def pokemon_error(ctx, error):
         await ctx.send("Précise le pokémon dont tu veux la fiche")
 
 
-@client.command()
-async def cat(ctx):
-    print("Requête d'image de chat via !cat")
-    r = requests.get('https://api.thecatapi.com/v1/images/search')
-
-    json_data = json.loads(r.text)
-    await ctx.send(json_data[0]['url'])
-
-
-@client.command()
-async def dog(ctx):
-    print("Requête d'image de chien via !dog")
-    r = requests.get('https://dog.ceo/api/breeds/image/random')
-
-    json_data = json.loads(r.text)
-    await ctx.send(json_data['message'])
-
-
-@client.command()
-async def meme(ctx):
-    print("Requête d'image de meme via !meme")
-    r = requests.get('https://meme-api.herokuapp.com/gimme')
-
-    json_data = json.loads(r.text)
-    await ctx.send(json_data['url'])
 
 
 
@@ -510,6 +480,12 @@ async def on_ready():
     print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
     user = client.get_user(214435319745871872)
     await user.send('Connecté prêt à fonctionner')
+
+
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 
 client.run(TOKEN)
