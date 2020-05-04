@@ -1,8 +1,8 @@
 # BOT
 
-Bot discord de l'IUT 
+# Bot discord de l'IUT 
 
-commande
+commandes
 
 `!arche` - Donne le lien de arche
 
