@@ -23,5 +23,5 @@ commande
 |`!cat` - Image aléatoire de chat
 |`!dog` - Image aléatoire de chien
 |`!league (champion)` - Information de champion de League of Legends
-|`!meme` - Meme aléatoire\n"
+|`!meme` - Meme aléatoire
 |`!panda` - Image aléatoire de panda
