@@ -63,7 +63,6 @@ class Music(commands.Cog):
         # je la renomme en song.mp3 affin de pas galerer si on remet une musique
         for file in os.listdir("./"):
             if file.endswith(".mp3"):
-                name = file
                 os.rename(file, 'song.mp3')
 
         # je joue la musique et affiche un petit message
