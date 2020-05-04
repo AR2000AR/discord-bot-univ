@@ -12,13 +12,11 @@ import os
 
 
 
-TOKEN = 'Njg4NDk0NzkzNDg3NDE3MzQ0.Xqw3jQ.m4xReJ6Oxek_gDnkKtvzi0isAdI'
-GUILD = "COMPUTING UNVIVERSITY"
+
 
 client = commands.Bot(command_prefix='!')
 client.remove_command("help")
 
-masters = (214435319745871872, 258246094788493312, 227497954389393408)
 
 """FONCTION DE COMMANDE VERS LE TEXTE"""
 
@@ -154,55 +152,6 @@ async def appel_error(ctx, error):
         await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
 
-# commande ! clear
-@client.command()
-@commands.has_any_role("Master")
-async def clear(ctx, arg):
-    print("Requête de clear via !clear")
-    await ctx.channel.purge(limit=int(arg))
-
-
-@clear.error
-async def clear_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        print("Erreur de requête via !arche : Manque le nombre en argument")
-        await ctx.send("Tu dois précisez le nombre de message que tu veux clear ! Exemple : !clear 10")
-    if isinstance(error, commands.MissingAnyRole):
-        print("Erreur de requête via !arche : Manque le nombre en argument")
-        await ctx.send("Tu dois être Master pour utiliser cette commande !")
-
-
-# ping les master
-@client.command()
-async def pingmaster(ctx, *args):
-    print("Requête d'une demande aux masters via !pingmaster")
-    dm = " ".join(args)
-    print(dm)
-
-    if dm == "":
-        await ctx.send("Précisez votre demande tel que : `!pingmaster Ceci est une demande`")
-    else:
-        for master in masters:
-            user = client.get_user(master)
-            await user.send('Demande de {} depuis le channel #{} et pour la demande suivante : "{}"'.format(ctx.author,
-                                                                                                            ctx.channel.name,
-                                                                                                            dm))
-            await ctx.send("La demande est envoyée aux 3 Masters du Discord")
-
-
-@pingmaster.error
-async def pingmaster_error(ctx, error):
-    print("Erreur dans la requête !pingmaster : Manque la demande en argument")
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Précise ta demande tel que : `!pingmaster Ceci est une demande")
-
-
-# situation actuelle
-@client.command()
-async def who(ctx):
-    print("Requête de description du bot via !who")
-    await ctx.send(
-        "Je suis Roboris Davin, le bot de ce serveur. Je ne connais absolument pas ce professeur qui aurait un nom similaire.")
 
 
 """FONCTION MUSICALE"""
@@ -262,7 +211,6 @@ async def on_ready():
     print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
     user = client.get_user(214435319745871872)
     await user.send('Connecté prêt à fonctionner')
-
 
 
 for filename in os.listdir('./cogs'):
