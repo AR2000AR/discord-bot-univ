@@ -102,12 +102,47 @@ async def github(ctx):
         "-----------------------------------------------------------------------------------------------------------------------------------------")
 
 
+@client.command()
+async def appel(ctx, args):
+    list_group = []
+    list_connected = []
+    channel = ctx.message.author.voice.channel
+
+    print("Requête d'appel via !appel")
+
+    # recuperer tous les memberes d'un groupe
+    for mem in ctx.guild.members:
+        for role in mem.roles:
+            if role.name == args:
+                list_group.append(mem)
+
+    # recuperer tous les membres connecté au channel
+    for eleve in channel.members:
+        list_connected.append(eleve.name)
+
+    i = 0
+    # afficher si ils sont preésent
+    for pres in list_group:
+        if pres.name in list_connected:
+            await ctx.send(f"`{pres.nick} ({pres.name})` est présent")
+        else:
+            await ctx.send(f"`{pres.nick} ({pres.name})` est absent")
+            i += 1
+
+    await ctx.send(f"Il y a {i} absent(s)")
+
+
+
+
+
+
 # commande ! clear
 @client.command()
 @commands.has_any_role("Master")
 async def clear(ctx, arg):
     print("Requête de clear via !clear")
     await ctx.channel.purge(limit=int(arg))
+
 
 
 @clear.error
