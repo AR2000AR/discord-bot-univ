@@ -110,9 +110,9 @@ async def appel(ctx, args):
     list_connected = []
     args = args.upper()
 
-    if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
+    """if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
         await ctx.send("C'est pas un groupe !")
-        return
+        return"""
 
     try:
         channel = ctx.message.author.voice.channel
@@ -149,17 +149,12 @@ async def appel(ctx, args):
 
 
 @appel.error
-async def appel_error(ctx, error):
-    print("Erreur dans la requête via !appel : Pas le bon rôle")
-    if isinstance(error, commands.MissingAnyRole):
-        await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
-
-
-@appel.error
-async def clear_error(ctx, error):
+async def appel(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         print("Erreur de requête via !appel : Manque le groupe en argument")
         await ctx.send("Tu dois précisez le groupe dont tu veux faire l'appel !")
+    if isinstance(error, commands.MissingAnyRole):
+        await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
 
 # commande ! clear
