@@ -97,7 +97,7 @@ async def github(ctx):
     print("Requête du lien github via !github")
     await ctx.send(
         "-----------------------------------------------------------------------------------------------------------------------------------------\n"
-        "                                    Voici le lien vers le GitHub d'aide des INFO : https://cutt.ly/tygWbO6\n"
+        "                                    Voici le lien vers le GitHub d'aide des INFO : https://cutt.ly/lyjQ8yr\n"
         "recopie interdite utilisez-le seulement pour comprendre ce que vous n'avez pas compris ou si vous avez loupé des cours\n"
         "-----------------------------------------------------------------------------------------------------------------------------------------")
 
@@ -396,6 +396,20 @@ async def league_error(ctx, error):
         await ctx.send("Précise le champion dont tu veux la fiche !")
 
 
+@client.command()
+async def sujet(ctx):
+    the_message = await ctx.send("A quel sujet en êtes vous ?")
+    emoji = discord.utils.get(ctx.guild.emojis, name='LUL')
+    await the_message.add_reaction("zeroUL:706771494977404939")
+    await the_message.add_reaction("unUL:706771880693989386")
+    await the_message.add_reaction("deuxUL:706771912784871464")
+    await the_message.add_reaction("troisUL:706771937103315004")
+    await the_message.add_reaction("quatreUL:706771969281884170")
+    await the_message.add_reaction("cinqUL:706771998419714088")
+    await the_message.add_reaction("sixUL:706772029646569524")
+    await the_message.add_reaction("septUL:706772056888442920")
+    await the_message.add_reaction("huitUL:706772079109865522")
+    await the_message.add_reaction("neufUL:706772105194373140")
 """GESTION D'EVENEMENT"""
 
 
