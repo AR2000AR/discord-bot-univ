@@ -39,6 +39,7 @@ async def help(ctx):
         "|`!github` - Donne le lien et les règles du GitHub\n"
         "|`!who` - Fait découvir qui est Roboris Davin\n"
         "|`!pingmaster (demande)` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
+        "|`!appel (groupe)` - Fait l'appel affiche les preésents, les absents, et le nombre d'absents\n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!helpadmin` - Not for you the plèbe\n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
@@ -124,9 +125,9 @@ async def appel(ctx, args):
     # afficher si ils sont preésent
     for pres in list_group:
         if pres.name in list_connected:
-            await ctx.send(f"`{pres.nick} ({pres.name})` est présent")
+            await ctx.send(f"`{pres.nick} ({pres.name})` est présent :green_circle:")
         else:
-            await ctx.send(f"`{pres.nick} ({pres.name})` est absent")
+            await ctx.send(f"`{pres.nick} ({pres.name})` est absent :red_circle:")
             i += 1
 
     await ctx.send(f"Il y a {i} absent(s)")
