@@ -111,7 +111,7 @@ async def appel(ctx, args):
 
     print("Requête d'appel via !appel")
 
-    # recuperer tous les memberes d'un groupe
+    # recuperer tous les membres d'un groupe
     for mem in ctx.guild.members:
         for role in mem.roles:
             if role.name == args:
@@ -132,9 +132,11 @@ async def appel(ctx, args):
 
     await ctx.send(f"Il y a {i} absent(s)")
 
-
-
-
+@appel.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        print("Erreur de requête via !appel : Manque le groupe en argument")
+        await ctx.send("Tu dois précisez le groupe dont tu veux faire l'appel !")
 
 
 # commande ! clear
@@ -143,7 +145,6 @@ async def appel(ctx, args):
 async def clear(ctx, arg):
     print("Requête de clear via !clear")
     await ctx.channel.purge(limit=int(arg))
-
 
 
 @clear.error
