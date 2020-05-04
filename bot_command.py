@@ -1,8 +1,7 @@
 # module de base
-import discord
 from discord.ext import commands
 # fonction musicale (os utile que pour ca atm)
-from cogs.consts import TOKEN, GUILD
+from consts import TOKEN, GUILD
 import os
 
 client = commands.Bot(command_prefix='!')
