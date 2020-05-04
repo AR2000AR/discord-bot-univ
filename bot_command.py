@@ -107,6 +107,11 @@ async def github(ctx):
 async def appel(ctx, args):
     list_group = []
     list_connected = []
+    args = args.upper()
+
+    if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
+        await ctx.send("C'est pas un groupe !")
+        return
 
     try:
         channel = ctx.message.author.voice.channel
@@ -115,8 +120,6 @@ async def appel(ctx, args):
         return
 
 
-
-    args = args.upper()
     print("Requête d'appel via !appel")
 
     # recuperer tous les membres d'un groupe
