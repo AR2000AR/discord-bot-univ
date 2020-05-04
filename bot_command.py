@@ -424,7 +424,7 @@ async def meme(ctx):
     r = requests.get('https://meme-api.herokuapp.com/gimme')
 
     json_data = json.loads(r.text)
-    await ctx.send(json_data['message'])
+    await ctx.send(json_data['url'])
 
 
 
