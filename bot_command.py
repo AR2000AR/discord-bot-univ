@@ -39,7 +39,7 @@ async def help(ctx):
         "|`!github` - Donne le lien et les règles du GitHub\n"
         "|`!who` - Fait découvir qui est Roboris Davin\n"
         "|`!pingmaster (demande)` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
-        "|`!appel (groupe)` - Fait l'appel affiche les preésents, les absents, et le nombre d'absents\n"
+        "|`!appel (groupe)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!helpadmin` - Not for you the plèbe\n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
@@ -47,7 +47,7 @@ async def help(ctx):
         "|`!pause` - Met en pause le titre\n"
         "|`!resume` - Reprend la lecture du titre\n"
         "|`!volume (nombre)` - Règle le volume\n"
-        "|`!leave` - Arrête le musqie et déconnecte le Bot\n"
+        "|`!leave` - Arrête le musique et déconnecte le Bot\n"
         "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
         "|`!pokemon (nom)` - Donne la fiche pokédex d'un pokémon (nom anglais seulement)\n"
         "|`!cat` - Image aléatoire de chat\n"
@@ -107,7 +107,15 @@ async def github(ctx):
 async def appel(ctx, args):
     list_group = []
     list_connected = []
-    channel = ctx.message.author.voice.channel
+
+    try:
+        channel = ctx.message.author.voice.channel
+    except AttributeError:
+        await ctx.send("Tu n'est pas dans un channel !")
+        return
+
+
+
     args = args.upper()
     print("Requête d'appel via !appel")
 
