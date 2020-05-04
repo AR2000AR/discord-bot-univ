@@ -104,6 +104,7 @@ async def github(ctx):
 
 
 @client.command()
+@commands.has_any_role("Master", "Professeur")
 async def appel(ctx, args):
     list_group = []
     list_connected = []
@@ -142,6 +143,13 @@ async def appel(ctx, args):
             i += 1
 
     await ctx.send(f"Il y a {i} absent(s)")
+
+
+@appel.error
+async def appel_error(ctx, error):
+    print("Erreur dans la requête via !appel : Pas le bon rôle")
+    if isinstance(error, commands.MissingAnyRole):
+        await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
 
 @appel.error
@@ -446,6 +454,7 @@ async def league_error(ctx, error):
 
 
 @client.command()
+@commands.has_any_role("Master", "Professeur")
 async def sujet(ctx):
     the_message = await ctx.send("A quel sujet en êtes vous ?")
     emoji = discord.utils.get(ctx.guild.emojis, name='LUL')
@@ -459,6 +468,15 @@ async def sujet(ctx):
     await the_message.add_reaction("septUL:706772056888442920")
     await the_message.add_reaction("huitUL:706772079109865522")
     await the_message.add_reaction("neufUL:706772105194373140")
+
+
+@appel.error
+async def sujet_error(ctx, error):
+    print("Erreur dans la requête via !sujet : Pas le bon rôle")
+    if isinstance(error, commands.MissingAnyRole):
+        await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
+
+
 """GESTION D'EVENEMENT"""
 
 
