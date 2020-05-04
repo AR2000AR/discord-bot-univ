@@ -468,6 +468,8 @@ async def on_ready():
             break
 
     print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
+    user = client.get_user(214435319745871872)
+    await user.send('Connecté prêt à fonctionner')
 
 
 client.run(TOKEN)
