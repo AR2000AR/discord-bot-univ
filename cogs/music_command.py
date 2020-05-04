@@ -134,3 +134,7 @@ class Music(commands.Cog):
         if voice and voice.is_connected():
             await voice.disconnect()
             await ctx.send(f"Déconnécté de {channel}")
+
+
+def setup(client):
+    client.add_cog(Music(client))
