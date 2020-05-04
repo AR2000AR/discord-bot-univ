@@ -422,7 +422,7 @@ async def dog(ctx):
 @client.command()
 async def meme(ctx):
     print("Requête d'image de meme via !meme")
-    r = requests.get('https://i.some-random-api.ml/07jjUxQKNf.png')
+    r = requests.get('https://some-random-api.ml/meme')
 
     json_data = json.loads(r.text)
     await ctx.send(json_data['image'])
