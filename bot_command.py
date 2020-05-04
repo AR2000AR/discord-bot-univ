@@ -109,7 +109,6 @@ async def appel(ctx, args):
     list_connected = []
     channel = ctx.message.author.voice.channel
     args = args.upper()
-    print(args)
     print("Requête d'appel via !appel")
 
     # recuperer tous les membres d'un groupe
