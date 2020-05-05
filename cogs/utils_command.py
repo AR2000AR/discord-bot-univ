@@ -47,7 +47,7 @@ class Utils(commands.Cog):
     async def setgame(self, ctx, *args: str):
         print("Requête de changement de Game Status de bot via !setgame")
         await self.client.change_presence(activity=discord.Game(name=" ".join(args)))
-        await ctx.send(f"Je joue désormais à ", " ".join(args))
+        await ctx.send(f"Je joue désormais à " + " " + " ".join(args))
 
     @setgame.error
     async def setgame_error(self, ctx, error):
