@@ -13,7 +13,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['paly', 'aply', 'plya', 'join'])
     async def play(self, ctx, *title: str):
-        print(f"Requête de chanson via !play, titre : {title}")
+        print(f"Requête de chanson via !play, titre : {title} par {ctx.author}")
         # vérification du channel vocal : si le user est connecté -> récupération de l'instance de voix -> connexion ou move du bot
 
         channel = ctx.message.author.voice.channel
