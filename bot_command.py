@@ -47,12 +47,12 @@ async def on_member_update(before, after):
 
                 embed = discord.Embed(
                     title=ac.title,
-                    description="Par " + " ".join(ac.artists),
+                    description="Par **" + " ".join(ac.artists) + "**",
                     colour=ac.color,
                 )
 
                 embed.set_image(url=ac.album_cover_url)
-                embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/fr/6/60/Spotify_logo_sans_texte.png")
+                embed.set_thumbnail(url="https://logodix.com/logo/785500.png")
                 await message.edit(content="La musique du moment de S T I C K O S", embed=embed)
 
     else:
