@@ -49,8 +49,8 @@ class Teacher(commands.Cog):
                 appel_message += f"`{pres.nick} ({pres.name})` est absent :red_circle:\n"
 
                 i += 1
-        """await ctx.send(appel_message)
-        await ctx.send(f"Il y a {i} absent(s)")"""
+        await ctx.send(appel_message)
+        await ctx.send(f"Il y a {i} absent(s)")
         print(appel_message)
 
     @appel.error
