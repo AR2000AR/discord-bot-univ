@@ -18,6 +18,9 @@ class Teacher(commands.Cog):
             await ctx.send("C'est pas un groupe !")
             return
 
+        if args == "CM":
+            args = "1ère année"
+
         try:
             channel = ctx.message.author.voice.channel
         except AttributeError:
