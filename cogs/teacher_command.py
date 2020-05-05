@@ -14,7 +14,7 @@ class Teacher(commands.Cog):
         list_connected = []
         args = args.upper()
 
-        if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4":
+        if args != "TP1" and args != "TP2" and args != "TP3" and args != "TP4" and args != "TD1" and args != "TD2" and args != "CM":
             await ctx.send("C'est pas un groupe !")
             return
 
