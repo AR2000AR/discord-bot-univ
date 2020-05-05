@@ -42,7 +42,7 @@ class Teacher(commands.Cog):
         # afficher si ils sont preésent
         for pres in list_group:
             if pres.name in list_connected:
-                appel_message += "`{pres.nick} ({pres.name})` est présent :green_circle:\n"
+                appel_message += f"`{pres.nick} ({pres.name})` est présent :green_circle:\n"
             else:
                 """user = self.client.get_user(pres.id)
                 await user.send('Tu as cours sur discord "COMPUTING UNIVERSITY')"""
