@@ -39,7 +39,7 @@ class Utils(commands.Cog):
                     'Demande de {} depuis le channel #{} et pour la demande suivante : "{}"'.format(ctx.author,
                                                                                                     ctx.channel.name,
                                                                                                     dm))
-                await ctx.send("La demande est envoyée aux 3 Masters du Discord")
+            await ctx.send("La demande est envoyée aux 3 Masters du Discord")
 
     @pingmaster.error
     async def pingmaster_error(self, ctx, error):
