@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 from consts import masters
 
@@ -7,6 +8,7 @@ class Utils(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    """ADMIN COMMANDE"""
     # commande ! clear
     @commands.command()
     @commands.has_any_role("Master")
@@ -22,6 +24,31 @@ class Utils(commands.Cog):
         if isinstance(error, commands.MissingAnyRole):
             print("Erreur de requête via !arche : Manque le nombre en argument")
             await ctx.send("Tu dois être Master pour utiliser cette commande !")
+
+    # commande ! helpadmin
+    @commands.command()
+    @commands.has_any_role("Master")
+    async def helpadmin(self, ctx):
+        print("Requête de helpadmin via !helpadmin")
+        await ctx.send("-----------------------------------------------------------------------------\n"
+                       "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
+                       "`!setgame (jeu)` - Change le jeu du bot\n"
+                       "-----------------------------------------------------------------------------")
+
+    # gestion de l'erreur en cas de non-possesion de master
+    @helpadmin.error
+    async def helpadmin_error(self, ctx, error):
+        print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
+        if isinstance(error, commands.MissingAnyRole):
+            await ctx.send("Tu dois être Master pour utiliser cette commande !")
+
+    @commands.command()
+    @commands.has_any_role("Master")
+    async def setgame(self, ctx, args: str):
+        print("Requête de changement de Game Status de bot via !setgame")
+        await self.client.change_presence(game=discord.Game(name=args))
+
+    """FIN ADMIN COMMANDE"""
 
     # ping les master
     @commands.command()
@@ -82,21 +109,7 @@ class Utils(commands.Cog):
             "|`!panda` - Image aléatoire de panda\n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
-    # commande ! helpadmin
-    @commands.command()
-    @commands.has_any_role("Master")
-    async def helpadmin(self, ctx):
-        print("Requête de helpadmin via !helpadmin")
-        await ctx.send("-----------------------------------------------------------------------------\n"
-                       "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
-                       "-----------------------------------------------------------------------------")
 
-    # gestion du rôle en cas de non-possesion de master
-    @helpadmin.error
-    async def helpadmin_error(self, ctx, error):
-        print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
-        if isinstance(error, commands.MissingAnyRole):
-            await ctx.send("Tu dois être Master pour utiliser cette commande !")
 
     # commande ! arche
     @commands.command()
