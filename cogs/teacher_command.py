@@ -38,18 +38,20 @@ class Teacher(commands.Cog):
             list_connected.append(eleve.name)
 
         i = 0
+        appel_message = ""
         # afficher si ils sont preésent
         for pres in list_group:
             if pres.name in list_connected:
-                await ctx.send(f"`{pres.nick} ({pres.name})` est présent :green_circle:")
+                appel_message += "`{pres.nick} ({pres.name})` est présent :green_circle:\n"
             else:
-                user = self.client.get_user(pres.id)
-                await user.send('Tu as cours sur discord "COMPUTING UNIVERSITY')
-                await ctx.send(f"`{pres.nick} ({pres.name})` est absent :red_circle:")
+                """user = self.client.get_user(pres.id)
+                await user.send('Tu as cours sur discord "COMPUTING UNIVERSITY')"""
+                appel_message += f"`{pres.nick} ({pres.name})` est absent :red_circle:\n"
 
                 i += 1
-
-        await ctx.send(f"Il y a {i} absent(s)")
+        """await ctx.send(appel_message)
+        await ctx.send(f"Il y a {i} absent(s)")"""
+        print(appel_message)
 
     @appel.error
     async def appel_error(self, ctx, error):
