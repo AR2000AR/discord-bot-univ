@@ -44,9 +44,9 @@ class Utils(commands.Cog):
 
     @commands.command()
     @commands.has_any_role("Master")
-    async def setgame(self, ctx, args: str):
+    async def setgame(self, ctx, *args: str):
         print("Requête de changement de Game Status de bot via !setgame")
-        await self.client.change_presence(game=discord.Game(name=args))
+        await self.client.change_presence(activity=discord.Game(name=" ".join(args)))
 
     """FIN ADMIN COMMANDE"""
 
