@@ -2,7 +2,7 @@
 import discord
 from discord.ext import commands
 # fonction musicale (os utile que pour ca atm)
-from consts import TOKEN, GUILD
+from consts import TOKEN, GUILD, FreezingKas, STICKOS
 import os
 
 client = commands.Bot(command_prefix='!')
@@ -36,14 +36,14 @@ async def on_ready():
 async def sendv(ctx):
     await ctx.send("MESSAGE TEST")
 
+
 @client.event
 async def on_member_update(before, after):
-    if after.id == 214435319745871872:
+    if after.id == STICKOS:
         for ac in after.activities:
             if ac.name == "Spotify":
-                print(ac.title)
-                print(ac.artists)
-                message = await client.get_channel(705403811560423476).fetch_message(707312964310401054)
+                print("Changement de musique Yannis")
+                message = await client.get_channel(707326525409591336).fetch_message(707326749297344655)
 
                 embed = discord.Embed(
                     title=ac.title,
@@ -52,12 +52,26 @@ async def on_member_update(before, after):
                 )
 
                 embed.set_image(url=ac.album_cover_url)
-                embed.set_thumbnail(url="https://logodix.com/logo/785500.png")
-                await message.edit(content="La musique du moment de S T I C K O S", embed=embed)
+                embed.set_thumbnail(url="https://zupimages.net/up/20/19/gbon.png")
+                embed.add_field(name="Album", value=ac.album, inline=False)
+                await message.edit(content="Vois ce qu'écoute S T I C K O S sur le channel radio-yannis", embed=embed)
 
-    else:
-        return
+    if after.id == FreezingKas:
+        for ac in after.activities:
+            if ac.name == "Spotify":
+                print("Changement de musique Maxence")
+                message = await client.get_channel(707326587074248726).fetch_message(707329464790679703)
 
+                embed = discord.Embed(
+                    title=ac.title,
+                    description="Par **" + " ".join(ac.artists) + "**",
+                    colour=ac.color,
+                )
+
+                embed.set_image(url=ac.album_cover_url)
+                embed.set_thumbnail(url="https://zupimages.net/up/20/19/gbon.png")
+                embed.add_field(name="Album", value=ac.album, inline=False)
+                await message.edit(content="Ce qu'écoute Maxence ", embed=embed)
 
 
 for filename in os.listdir('./cogs'):
