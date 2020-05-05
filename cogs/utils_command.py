@@ -48,6 +48,12 @@ class Utils(commands.Cog):
         print("Requête de changement de Game Status de bot via !setgame")
         await self.client.change_presence(activity=discord.Game(name=" ".join(args)))
 
+    @setgame.error
+    async def setgame_error(self, ctx, error):
+        print("Erreur dans la requête via !setgame : Pas le bon rôle")
+        if isinstance(error, commands.MissingAnyRole):
+            await ctx.send("Tu dois être Master pour utiliser cette commande ! 57 % de chance que ce soit Nicolas Bem qui ait essayé")
+
     """FIN ADMIN COMMANDE"""
 
     # ping les master
