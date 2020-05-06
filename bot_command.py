@@ -47,7 +47,6 @@ async def on_member_update(before, after):
             if ac.name == "Spotify":
                 print("Changement de musique Yannis")
                 message = await client.get_channel(707326525409591336).fetch_message(707326749297344655)
-                print(ac.track_id)
                 embed = discord.Embed(
                     title=ac.title,
                     description="Par **" + " ".join(ac.artists) + "**",
@@ -66,7 +65,6 @@ async def on_member_update(before, after):
             if ac.name == "Spotify":
                 print("Changement de musique Maxence")
                 message = await client.get_channel(707326587074248726).fetch_message(707329464790679703)
-                print(ac.track_id)
                 embed = discord.Embed(
                     title=ac.title,
                     description="Par **" + " ".join(ac.artists) + "**",
