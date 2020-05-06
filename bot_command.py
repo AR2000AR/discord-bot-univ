@@ -1,5 +1,8 @@
 # module de base
+import json
+
 import discord
+import requests
 from discord.ext import commands
 # fonction musicale (os utile que pour ca atm)
 from consts import TOKEN, GUILD, FreezingKas, STICKOS
@@ -44,16 +47,18 @@ async def on_member_update(before, after):
             if ac.name == "Spotify":
                 print("Changement de musique Yannis")
                 message = await client.get_channel(707326525409591336).fetch_message(707326749297344655)
-
+                print(ac.track_id)
                 embed = discord.Embed(
                     title=ac.title,
                     description="Par **" + " ".join(ac.artists) + "**",
                     colour=ac.color,
+                    url=f"https://open.spotify.com/track/{ac.track_id}",
                 )
 
                 embed.set_image(url=ac.album_cover_url)
                 embed.set_thumbnail(url="https://zupimages.net/up/20/19/gbon.png")
                 embed.add_field(name="Album", value=ac.album, inline=False)
+
                 await message.edit(content="Vois ce qu'écoute S T I C K O S sur le channel radio-yannis", embed=embed)
 
     if after.id == FreezingKas:
@@ -61,11 +66,12 @@ async def on_member_update(before, after):
             if ac.name == "Spotify":
                 print("Changement de musique Maxence")
                 message = await client.get_channel(707326587074248726).fetch_message(707329464790679703)
-
+                print(ac.track_id)
                 embed = discord.Embed(
                     title=ac.title,
                     description="Par **" + " ".join(ac.artists) + "**",
                     colour=ac.color,
+                    url=f"https://open.spotify.com/track/{ac.track_id}",
                 )
 
                 embed.set_image(url=ac.album_cover_url)
