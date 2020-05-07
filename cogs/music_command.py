@@ -109,7 +109,7 @@ class Music(commands.Cog):
             await ctx.send("Aucune musique en cours")
 
     @commands.command()
-    async def volume(self, ctx, vol: float):
+    async def volume(self, ctx, vol: int):
         """Changer le volume"""
         print("Requête de changement de volume de la chanson via !volume")
         if ctx.voice_client is None:
