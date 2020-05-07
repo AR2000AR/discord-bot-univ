@@ -47,8 +47,6 @@ class Teacher(commands.Cog):
             if pres.name in list_connected:
                 appel_message += f"`{pres.nick} ({pres.name})` est présent :green_circle:\n"
             else:
-                user = self.client.get_user(pres.id)
-                await user.send(f'Tu as cours sur le discord "COMPUTING UNIVERSITY dans {channel.name}')
                 appel_message += f"`{pres.nick} ({pres.name})` est absent :red_circle:\n"
 
                 i += 1
