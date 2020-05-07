@@ -49,7 +49,7 @@ class Music(commands.Cog):
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(f"ytsearch:'{title_format}'",
                                     download=False)
-
+        print(info)
         # je met seulement les informations qui m'intéressse cad le titre et l'url
         dic = {
             'url': info['entries'][0]['webpage_url'],
