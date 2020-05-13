@@ -39,6 +39,7 @@ commandes
 `!dog` - Image aléatoire de chien
 
 `!league (champion)` - Information de champion de League of Legends
+
 `!meme` - Meme aléatoire
 
 `!panda` - Image aléatoire de panda
