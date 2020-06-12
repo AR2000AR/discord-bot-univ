@@ -16,6 +16,14 @@ class Utils(commands.Cog):
         print("Requête de clear via !clear")
         await ctx.channel.purge(limit=int(arg))
 
+    @commands.command()
+    async def new_sondage(self, ctx, *args):
+        pass
+
+    @commands.command()
+    async def add_option_sondage(self, ctx, *args):
+        pass
+
     @clear.error
     async def clear_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -115,8 +123,6 @@ class Utils(commands.Cog):
             "|`!meme` - Meme aléatoire\n"
             "|`!panda` - Image aléatoire de panda\n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-
-
 
     # commande ! arche
     @commands.command()

@@ -35,49 +35,6 @@ async def on_ready():
     await user.send('Connecté prêt à fonctionner')
 
 
-@client.command()
-async def sendv(ctx):
-    await ctx.send("MESSAGE TEST")
-
-
-@client.event
-async def on_member_update(before, after):
-    if after.id == STICKOS:
-        for ac in after.activities:
-            if ac.name == "Spotify":
-                print("Changement de musique Yannis")
-                message = await client.get_channel(707326525409591336).fetch_message(707326749297344655)
-                embed = discord.Embed(
-                    title=ac.title,
-                    description="Par **" + " ".join(ac.artists) + "**",
-                    colour=ac.color,
-                    url=f"https://open.spotify.com/track/{ac.track_id}",
-                )
-
-                embed.set_image(url=ac.album_cover_url)
-                embed.set_thumbnail(url="https://zupimages.net/up/20/19/gbon.png")
-                embed.add_field(name="Album", value=ac.album, inline=False)
-
-                await message.edit(content="Vois ce qu'écoute S T I C K O S sur le channel radio-yannis", embed=embed)
-
-    if after.id == FreezingKas:
-        for ac in after.activities:
-            if ac.name == "Spotify":
-                print("Changement de musique Maxence")
-                message = await client.get_channel(707326587074248726).fetch_message(707329464790679703)
-                embed = discord.Embed(
-                    title=ac.title,
-                    description="Par **" + " ".join(ac.artists) + "**",
-                    colour=ac.color,
-                    url=f"https://open.spotify.com/track/{ac.track_id}",
-                )
-
-                embed.set_image(url=ac.album_cover_url)
-                embed.set_thumbnail(url="https://zupimages.net/up/20/19/gbon.png")
-                embed.add_field(name="Album", value=ac.album, inline=False)
-                await message.edit(content="Ce qu'écoute Maxence ", embed=embed)
-
-
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
