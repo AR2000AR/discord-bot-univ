@@ -5,7 +5,7 @@ import discord
 import requests
 from discord.ext import commands
 # fonction musicale (os utile que pour ca atm)
-from consts import TOKEN, GUILD, FreezingKas, STICKOS
+from consts import TOKEN, GUILD
 import os
 
 client = commands.Bot(command_prefix='!')
