@@ -16,14 +16,6 @@ class Utils(commands.Cog):
         print("Requête de clear via !clear")
         await ctx.channel.purge(limit=int(arg))
 
-    @commands.command()
-    async def new_sondage(self, ctx, *args):
-        pass
-
-    @commands.command()
-    async def add_option_sondage(self, ctx, *args):
-        pass
-
     @clear.error
     async def clear_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
@@ -61,7 +53,7 @@ class Utils(commands.Cog):
     async def setgame_error(self, ctx, error):
         print("Erreur dans la requête via !setgame : Pas le bon rôle")
         if isinstance(error, commands.MissingAnyRole):
-            await ctx.send("Tu dois être Master pour utiliser cette commande ! 57 % de chance que ce soit Nicolas Bem qui ait essayé")
+            await ctx.send("Tu dois être Master pour utiliser cette commande !")
 
     """FIN ADMIN COMMANDE"""
 
