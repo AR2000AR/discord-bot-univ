@@ -57,30 +57,6 @@ class Utils(commands.Cog):
 
     """FIN ADMIN COMMANDE"""
 
-    # ping les master
-    @commands.command()
-    async def pingmaster(self, ctx, *args):
-        print("Requête d'une demande aux masters via !pingmaster")
-        dm = " ".join(args)
-        print(dm)
-
-        if dm == "":
-            await ctx.send("Précisez votre demande tel que : `!pingmaster Ceci est une demande`")
-        else:
-            for master in masters:
-                user = self.client.get_user(master)
-                await user.send(
-                    'Demande de {} depuis le channel #{} et pour la demande suivante : "{}"'.format(ctx.author,
-                                                                                                    ctx.channel.name,
-                                                                                                    dm))
-            await ctx.send("La demande est envoyée aux 3 Masters du Discord")
-
-    @pingmaster.error
-    async def pingmaster_error(self, ctx, error):
-        print("Erreur dans la requête !pingmaster : Manque la demande en argument")
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("Précise ta demande tel que : `!pingmaster Ceci est une demande")
-
     # situation actuelle
     @commands.command()
     async def who(self, ctx):
