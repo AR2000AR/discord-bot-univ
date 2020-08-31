@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands, has_permissions, CheckFailure
+from discord.ext import commands
 from consts import masters
 
 
