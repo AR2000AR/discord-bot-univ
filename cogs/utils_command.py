@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, has_permissions, CheckFailure
 from consts import masters
 
 
@@ -11,7 +11,7 @@ class Utils(commands.Cog):
     """ADMIN COMMANDE"""
     # commande ! clear
     @commands.command()
-    @commands.has_any_role("Master")
+    @has_permissions(administrator=True)
     async def clear(self, ctx, arg):
         print("Requête de clear via !clear")
         await ctx.channel.purge(limit=int(arg))
@@ -21,13 +21,13 @@ class Utils(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             print("Erreur de requête via !arche : Manque le nombre en argument")
             await ctx.send("Tu dois précisez le nombre de message que tu veux clear ! Exemple : !clear 10")
-        if isinstance(error, commands.MissingAnyRole):
+        if isinstance(error, CheckFailure):
             print("Erreur de requête via !arche : Manque le nombre en argument")
-            await ctx.send("Tu dois être Master pour utiliser cette commande !")
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     # commande ! helpadmin
     @commands.command()
-    @commands.has_any_role("Master")
+    @has_permissions(administrator=True)
     async def helpadmin(self, ctx):
         print("Requête de helpadmin via !helpadmin")
         await ctx.send("-----------------------------------------------------------------------------\n"
@@ -39,11 +39,11 @@ class Utils(commands.Cog):
     @helpadmin.error
     async def helpadmin_error(self, ctx, error):
         print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
-        if isinstance(error, commands.MissingAnyRole):
-            await ctx.send("Tu dois être Master pour utiliser cette commande !")
+        if isinstance(error, CheckFailure):
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     @commands.command()
-    @commands.has_any_role("Master")
+    @has_permissions(administrator=True)
     async def setgame(self, ctx, *args: str):
         print("Requête de changement de Game Status de bot via !setgame")
         await self.client.change_presence(activity=discord.Game(name=" ".join(args)))
@@ -52,8 +52,8 @@ class Utils(commands.Cog):
     @setgame.error
     async def setgame_error(self, ctx, error):
         print("Erreur dans la requête via !setgame : Pas le bon rôle")
-        if isinstance(error, commands.MissingAnyRole):
-            await ctx.send("Tu dois être Master pour utiliser cette commande !")
+        if isinstance(error, CheckFailure):
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     """FIN ADMIN COMMANDE"""
 
@@ -71,26 +71,10 @@ class Utils(commands.Cog):
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
             "|`!arche` - Donne le lien de arche\n"
             "|`!ent` - Donne le lien vers l'ENT\n"
-            "|`!github` - Donne le lien et les règles du GitHub\n"
             "|`!who` - Fait découvir qui est Roboris Davin\n"
-            "|`!pingmaster (demande)` - Permet d'envoyer une courte demande en DM aux Masters (ils ne sont ni mentionnable, et ne regarde pas les DMs d'inconnu)\n"
-            "|`!appel (groupe)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
+            "|`!appel (année) (groupe)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-            "|`!helpadmin` - Not for you the plèbe\n"
-            "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-            "|`!play (titre)` - Connecte le bot au salon où vous êtes et joue le titre demandé\n"
-            "|`!pause` - Met en pause le titre\n"
-            "|`!resume` - Reprend la lecture du titre\n"
-            "|`!volume (nombre)` - Règle le volume\n"
-            "|`!leave` - Arrête le musique et déconnecte le Bot\n"
-            "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
-            "|`!pokemon (nom)` - Donne la fiche pokédex d'un pokémon (nom anglais seulement)\n"
-            "|`!cat` - Image aléatoire de chat\n"
-            "|`!dog` - Image aléatoire de chien\n"
-            "|`!league (champion)` - Information de champion de League of Legends\n"
-            "|`!meme` - Meme aléatoire\n"
-            "|`!panda` - Image aléatoire de panda\n"
-            "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+            )
 
     # commande ! arche
     @commands.command()
@@ -108,15 +92,6 @@ class Utils(commands.Cog):
                        "Voici le lien vers l'ENT : https://cutt.ly/MygW3Rc\n"
                        "----------------------------------------------------------")
 
-    # commande !github
-    @commands.command()
-    async def github(self, ctx):
-        print("Requête du lien github via !github")
-        await ctx.send(
-            "-----------------------------------------------------------------------------------------------------------------------------------------\n"
-            "                                    Voici le lien vers le GitHub d'aide des INFO : https://cutt.ly/lyjQ8yr\n"
-            "recopie interdite utilisez-le seulement pour comprendre ce que vous n'avez pas compris ou si vous avez loupé des cours\n"
-            "-----------------------------------------------------------------------------------------------------------------------------------------")
 
 
 def setup(client):
