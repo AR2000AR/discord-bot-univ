@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from consts import masters
+
 
 
 class Utils(commands.Cog):
