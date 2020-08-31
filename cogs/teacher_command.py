@@ -4,7 +4,7 @@ from consts import annee, roles
 
 class Teacher(commands.Cog):
     
-    """Classe contenant toutes les commandes utile pour les professeurs"""
+    """Classe contenant toutes les commandes utiles pour les professeurs"""
     def __init__(self, client):
         self.client = client
 
