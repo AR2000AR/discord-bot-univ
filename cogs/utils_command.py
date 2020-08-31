@@ -14,7 +14,7 @@ class Utils(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def clear(self, ctx, arg):
         print("Requête de clear via !clear")
-        await ctx.channel.purge(limit=int(arg))
+        await ctx.channel.purge(limit=int(arg)+1)
 
     @clear.error
     async def clear_error(self, ctx, error):

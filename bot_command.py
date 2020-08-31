@@ -27,10 +27,9 @@ async def on_command_error(ctx, error):
 async def on_ready():
     guild = "Inconnu"
     for guild in client.guilds:
-        if guild.name == GUILD:
-            break
+        print(f'{client.user} has connected   to' f' {guild.name} id: {guild.id}')
 
-    print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
+
 
 
 for filename in os.listdir('./cogs'):
