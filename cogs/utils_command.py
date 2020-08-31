@@ -11,7 +11,7 @@ class Utils(commands.Cog):
     """ADMIN COMMANDE"""
     # commande ! clear
     @commands.command()
-    @has_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
     async def clear(self, ctx, arg):
         print("Requête de clear via !clear")
         await ctx.channel.purge(limit=int(arg))
@@ -21,13 +21,13 @@ class Utils(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             print("Erreur de requête via !arche : Manque le nombre en argument")
             await ctx.send("Tu dois précisez le nombre de message que tu veux clear ! Exemple : !clear 10")
-        if isinstance(error, CheckFailure):
+        if isinstance(error, commands.CheckFailure):
             print("Erreur de requête via !arche : Manque le nombre en argument")
             await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     # commande ! helpadmin
     @commands.command()
-    @has_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
     async def helpadmin(self, ctx):
         print("Requête de helpadmin via !helpadmin")
         await ctx.send("-----------------------------------------------------------------------------\n"
@@ -39,11 +39,11 @@ class Utils(commands.Cog):
     @helpadmin.error
     async def helpadmin_error(self, ctx, error):
         print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
-        if isinstance(error, CheckFailure):
+        if isinstance(error, commands.CheckFailure):
             await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     @commands.command()
-    @has_permissions(administrator=True)
+    @commands.has_permissions(administrator=True)
     async def setgame(self, ctx, *args: str):
         print("Requête de changement de Game Status de bot via !setgame")
         await self.client.change_presence(activity=discord.Game(name=" ".join(args)))
@@ -52,7 +52,7 @@ class Utils(commands.Cog):
     @setgame.error
     async def setgame_error(self, ctx, error):
         print("Erreur dans la requête via !setgame : Pas le bon rôle")
-        if isinstance(error, CheckFailure):
+        if isinstance(error, commands.CheckFailure):
             await ctx.send("Tu dois être Admin pour utiliser cette commande !")
 
     """FIN ADMIN COMMANDE"""
