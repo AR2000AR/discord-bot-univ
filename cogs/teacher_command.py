@@ -95,6 +95,41 @@ class Teacher(commands.Cog):
         if isinstance(error, commands.MissingAnyRole):
             await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
+    @commands.command()
+    async def sujet(self, ctx, *args):
+        allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
+        # On fait la liste des rôles autorisés à utiliser cette commande
+        for role in ctx.guild.roles:
+            if role.name.startswith("Enseignant") or role.name.startswith("Admin"):
+                allowed_role.append(role)
+
+        # On vérifie que l'utilisateur a le droit d'utiliser la commande
+        allowedUser = False
+
+        for role in ctx.author.roles:
+            if role in allowed_role:
+                allowedUser = True
+                break
+        
+        if not allowedUser:
+            await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
+            return
+
+            
+        the_message = await ctx.send(" ".join(args))
+        await the_message.add_reaction("zeroUL:706771494977404939")
+        await the_message.add_reaction("unUL:706771880693989386")
+        await the_message.add_reaction("deuxUL:706771912784871464")
+        await the_message.add_reaction("troisUL:706771937103315004")
+        await the_message.add_reaction("quatreUL:706771969281884170")
+        await the_message.add_reaction("cinqUL:706771998419714088")
+        await the_message.add_reaction("sixUL:706772029646569524")
+        await the_message.add_reaction("septUL:706772056888442920")
+        await the_message.add_reaction("huitUL:706772079109865522")
+        await the_message.add_reaction("neufUL:706772105194373140")
+
+    
+
 
 def setup(client):
     client.add_cog(Teacher(client))
