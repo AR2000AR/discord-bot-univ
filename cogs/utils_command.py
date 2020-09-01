@@ -72,7 +72,7 @@ class Utils(commands.Cog):
             "|`!arche` - Donne le lien de arche\n"
             "|`!ent` - Donne le lien vers l'ENT\n"
             "|`!who` - Fait découvir qui est Roboris Davin\n"
-            "|`!appel (année) (groupe)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
+            "|`!appel (rôle)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
             )
 
