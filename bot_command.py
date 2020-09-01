@@ -29,7 +29,7 @@ async def on_ready():
     for guild in client.guilds:
         print(f'{client.user} has connected   to' f' {guild.name} id: {guild.id}')
 
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="a movie"))
+    await client.change_presence(activity=discord.CustomActivity(type=discord.ActivityType.custom, name="a movie"))
 
 
 
