@@ -10,6 +10,14 @@ class Teacher(commands.Cog):
 
     @commands.command()
     async def appel(self, ctx, *args):
+
+        try:
+            channel = ctx.message.author.voice.channel
+        except AttributeError:
+            await ctx.send("Tu n'es pas dans un salon vocal !")
+            return
+
+            
         allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
         # On fait la liste des rôles autorisés à utiliser cette commande
         for role in ctx.guild.roles:
@@ -96,6 +104,42 @@ class Teacher(commands.Cog):
             await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
     @commands.command()
+    async def sondage_multiple(self, ctx, *args):
+        allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
+        # On fait la liste des rôles autorisés à utiliser cette commande
+        for role in ctx.guild.roles:
+            if role.name.startswith("Enseignant") or role.name.startswith("Admin"):
+                allowed_role.append(role)
+
+        # On vérifie que l'utilisateur a le droit d'utiliser la commande
+        allowedUser = False
+
+        for role in ctx.author.roles:
+            if role in allowed_role:
+                allowedUser = True
+                break
+        
+        if not allowedUser:
+            await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
+            return
+
+        emoji_number = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣", "9️⃣"]
+        args = list(args)
+        number_ans = int(args[0])
+
+        del args[0]
+        
+        the_message = await ctx.send(" ".join(args))
+        
+        for i in range(0, number_ans):
+            await the_message.add_reaction(emoji_number[i])
+       
+
+        
+        
+        
+        
+    @commands.command()
     async def sondage(self, ctx, *args):
         allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
         # On fait la liste des rôles autorisés à utiliser cette commande
@@ -115,11 +159,10 @@ class Teacher(commands.Cog):
             await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
             return
 
-        
         the_message = await ctx.send(" ".join(args))
-        
-        await the_message.add_reaction("green:750355905798865080")
-        await the_message.add_reaction("red:750356129896333362")
+    
+        await the_message.add_reaction("\U0001f7e2")
+        await the_message.add_reaction("\U0001f534")
         
     
 

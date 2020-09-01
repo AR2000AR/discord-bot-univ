@@ -73,6 +73,8 @@ class Utils(commands.Cog):
             "|`!ent` - Donne le lien vers l'ENT\n"
             "|`!who` - Fait découvir qui est Roboris Davin\n"
             "|`!appel (rôle)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
+            "|`!sondage (question)` - Crée un sondage avec comme réponse possible oui ou non\n"
+            "|`!sondage_multiple (nombre de réponses) (question)` - Crée un sondage avec plusieurs réponses possibles numéroté (de 1 à 9 à vous de le définir)\n"
             "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
             )
 
