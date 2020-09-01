@@ -96,7 +96,7 @@ class Teacher(commands.Cog):
             await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
 
     @commands.command()
-    async def sujet(self, ctx, *args):
+    async def sondage(self, ctx, *args):
         allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
         # On fait la liste des rôles autorisés à utiliser cette commande
         for role in ctx.guild.roles:
@@ -115,7 +115,7 @@ class Teacher(commands.Cog):
             await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
             return
 
-            
+
         the_message = await ctx.send(" ".join(args))
         await the_message.add_reaction("zeroUL:706771494977404939")
         await the_message.add_reaction("unUL:706771880693989386")
