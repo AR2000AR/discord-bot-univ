@@ -117,8 +117,9 @@ class Teacher(commands.Cog):
 
         
         the_message = await ctx.send(" ".join(args))
-        await the_message.add_reaction("red:750356129896333362")
+        
         await the_message.add_reaction("green:750355905798865080")
+        await the_message.add_reaction("red:750356129896333362")
         
     
 
