@@ -94,6 +94,10 @@ class Utils(commands.Cog):
                        "Voici le lien vers l'ENT : https://cutt.ly/MygW3Rc\n"
                        "----------------------------------------------------------")
 
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def send_gen(self, ctx, *args: str):
+        pass
 
 
 def setup(client):
