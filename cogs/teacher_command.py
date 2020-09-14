@@ -84,7 +84,7 @@ class Teacher(commands.Cog):
         # ajoute la présence de la personne dans le message qui va être envoyé
         for present in list_group:
             if present.name not in list_connected:
-                appel_message += f"`{present.nick} ({present.name})` est présent :red_circle:\n"
+                appel_message += f"`{present.nick} ({present.name})` est absent :red_circle:\n"
             
 
                 i += 1
