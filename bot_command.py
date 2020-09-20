@@ -29,7 +29,7 @@ async def on_ready():
     for guild in client.guilds:
         print(f'{client.user} has connected   to' f' {guild.name} id: {guild.id}')
 
-    await client.change_presence(activity=discord.Game(name="Python > Java"))
+    await client.change_presence(activity=discord.Game(name="LvkwvgXCsùwqhCwAbizFbURQv:cheh"))
 
 
 
