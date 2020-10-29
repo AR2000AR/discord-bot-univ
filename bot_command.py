@@ -11,31 +11,28 @@ import os
 client = commands.Bot(command_prefix='!')
 client.remove_command("help")
 
-
 # gestion de l'erreur en cas de commande inconnue
 @client.event
 async def on_command_error(ctx, error):
     print("Erreur dans la requête d'une commande : Commande inconnue")
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("Commande inexistante ! M. Davin aurait honte de toi !")
+        await ctx.send("Commande inexistante !")
     else:
         raise error
-
 
 # notification terminal de connexion
 @client.event
 async def on_ready():
     guild = "Inconnu"
     for guild in client.guilds:
-        print(f'{client.user} has connected   to' f' {guild.name} id: {guild.id}')
+        print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
 
     await client.change_presence(activity=discord.Game(name="LvkwbjjBwmwgwpfvbURQ:cheh"))
 
-
-
-
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
+        if(filename.startswith('fun')):
+            continue
         client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(TOKEN)
