@@ -2,14 +2,12 @@ import discord
 from discord.ext import commands
 from consts import *
 
-
 def isVoiceConnect(ctx):
     try:
         channel = ctx.message.author.voice.channel
         return True
     except AttributeError:
         return False
-
 
 class Teacher(commands.Cog):
     """Classe contenant toutes les commandes utiles pour les professeurs"""
@@ -61,64 +59,6 @@ class Teacher(commands.Cog):
         elif(isinstance(error,commands.CheckFailure)):
             await ctx.send("Pas dans un salon vocal",delete_after=ERROR_DELAY)
             await ctx.message.delete(delay=ERROR_DELAY)
-
-    @commands.command()
-    @commands.guild_only()
-    async def sondage_multiple(self, ctx, *args):
-        allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
-        # On fait la liste des rôles autorisés à utiliser cette commande
-        for role in ctx.guild.roles:
-            if role.name.startswith("Enseignant") or role.name.startswith("Admin"):
-                allowed_role.append(role)
-
-        # On vérifie que l'utilisateur a le droit d'utiliser la commande
-        allowedUser = False
-
-        for role in ctx.author.roles:
-            if role in allowed_role:
-                allowedUser = True
-                break
-
-        if not allowedUser:
-            await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
-            return
-
-        emoji_number = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣","7️⃣","8️⃣", "9️⃣"]
-        args = list(args)
-        number_ans = int(args[0])
-
-        del args[0]
-
-        the_message = await ctx.send(" ".join(args))
-
-        for i in range(0, number_ans):
-            await the_message.add_reaction(emoji_number[i])
-
-    @commands.command()
-    @commands.guild_only()
-    async def sondage(self, ctx, *args):
-        allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
-        # On fait la liste des rôles autorisés à utiliser cette commande
-        for role in ctx.guild.roles:
-            if role.name.startswith("Enseignant") or role.name.startswith("Admin"):
-                allowed_role.append(role)
-
-        # On vérifie que l'utilisateur a le droit d'utiliser la commande
-        allowedUser = False
-
-        for role in ctx.author.roles:
-            if role in allowed_role:
-                allowedUser = True
-                break
-
-        if not allowedUser:
-            await ctx.send("Vous n'êtes pas autorisé à utiliser cette commande !")
-            return
-
-        the_message = await ctx.send(" ".join(args))
-
-        await the_message.add_reaction("\U0001f7e2")
-        await the_message.add_reaction("\U0001f534")
 
 
 def setup(client):
