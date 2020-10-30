@@ -1,12 +1,10 @@
 # module de base
-import json
-
 import discord
 # import requests
 from discord.ext import commands
 from discord import Intents
 # fonction musicale (os utile que pour ca atm)
-from consts import TOKEN, GUILD
+from consts import *
 import os
 
 #Merci à Maxime M pour l'info sur l'intent
@@ -21,10 +19,10 @@ client.remove_command("help")
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         print("Erreur dans la requête d'une commande : Commande inconnue")
-        await ctx.send("Commande inexistante !")
+        await ctx.send("Commande inexistante !",delete_after=ERROR_DELAY)
+        await ctx.message.delete(delay=ERROR_DELAY)
     else:
         pass
-        #raise error
 
 # notification terminal de connexion
 @client.event
@@ -33,7 +31,7 @@ async def on_ready():
     for guild in client.guilds:
         print(f'{client.user} has connected to' f' {guild.name} id: {guild.id}')
 
-    await client.change_presence(activity=discord.Game(name="LvkwbjjBwmwgwpfvbURQ:cheh"))
+    await client.change_presence(activity=discord.Game(name=ACTIVITY))
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

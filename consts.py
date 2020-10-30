@@ -1,8 +1,12 @@
-TOKEN = 'NzcxNDY3NTg3NDQzODg0MDYz.X5sjLg.L7LC69MiFbo6hT77CFquCQRJMJk'
-GUILD = "LP ASR"
+TOKEN = ''
+with open('token','r') as tokenFile:
+    TOKEN = tokenFile.readline()
 
 ROLES_ETU = ["ASRFI","ASRAT"]
-
 ROLES_PROF = ["Enseignant"]
-
 ANNEE = ["A1"]
+ACTIVITY="LvkwbjjBwmwgwpfvbURQ:cheh"
+LIEN_ENT = "https://ent.univ-lorraine.fr/"
+LIEN_ARCHE = "https://arche.univ-lorraine.fr/my"
+MP_DELAY = 10
+ERROR_DELAY = 5

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from consts import ANNEE, ROLES_ETU, ROLES_PROF
+from consts import *
 
 
 def isVoiceConnect(ctx):
@@ -31,9 +31,7 @@ class Teacher(commands.Cog):
 
         rolesMembers = []
         for member in ctx.guild.members:
-            print(member)
             for memberRole in member.roles:
-                print(f'    {memberRole.name}')
                 if(memberRole.name in args):
                     if(member not in rolesMembers):
                         rolesMembers.append(member)
@@ -44,22 +42,24 @@ class Teacher(commands.Cog):
 
         for member in rolesMembers:
             if(member not in ctx.message.author.voice.channel.members):
-                print(member)
                 message += f'<@{member.id}> est absent :red_circle:\n'
                 nbAbs+=1
         for member in rolesMembers:
             if(member in ctx.message.author.voice.channel.members):
-                print(member)
                 message += f'<@{member.id}> est présent :green_circle:\n'
 
-        await ctx.send(f'{message} \n Il y a {nbAbs} absent(s)')
+        embed = discord.Embed(title="Appel",description=f'{message} \n Il y a {nbAbs} absent(s)')
+
+        await ctx.send(embed=embed)
 
     @appel.error
     async def appel_error(self, ctx, error):
         if(isinstance(error,commands.MissingAnyRole)):
-            await ctx.send("missing role")
+            await ctx.send("missing role",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
         elif(isinstance(error,commands.CheckFailure)):
-            await ctx.send("Pas dans un salon vocal")
+            await ctx.send("Pas dans un salon vocal",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
 
     @commands.command()
     async def sondage_multiple(self, ctx, *args):

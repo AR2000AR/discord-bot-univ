@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-
-
+from consts import *
 
 class Utils(commands.Cog):
 
@@ -11,36 +10,35 @@ class Utils(commands.Cog):
     """ADMIN COMMANDE"""
     # commande ! clear
     @commands.command()
-    @commands.has_permissions(administrator=True)
-    async def clear(self, ctx, arg):
+    @commands.has_any_role(*ROLES_PROF, "Admin")
+    async def clear(self, ctx, arg="0"):
         print("Requête de clear via !clear")
         await ctx.channel.purge(limit=int(arg)+1)
 
     @clear.error
     async def clear_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            print("Erreur de requête via !arche : Manque le nombre en argument")
-            await ctx.send("Tu dois précisez le nombre de message que tu veux clear ! Exemple : !clear 10")
-        if isinstance(error, commands.CheckFailure):
-            print("Erreur de requête via !arche : Manque le nombre en argument")
-            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
+        if isinstance(error, commands.MissingAnyRole):
+            await ctx.send("Tu dois être Enseignant pour utiliser cette commande !",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
 
     # commande ! helpadmin
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def helpadmin(self, ctx):
-        print("Requête de helpadmin via !helpadmin")
-        await ctx.send("-----------------------------------------------------------------------------\n"
+        await ctx.send("Regarde tes MP", delete_after=MP_DELAY)
+        await ctx.message.author.send("-----------------------------------------------------------------------------\n"
                        "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
                        "`!setgame (jeu)` - Change le jeu du bot\n"
                        "-----------------------------------------------------------------------------")
+        await ctx.message.delete(delay=MP_DELAY)
 
     # gestion de l'erreur en cas de non-possesion de master
     @helpadmin.error
     async def helpadmin_error(self, ctx, error):
-        print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
         if isinstance(error, commands.CheckFailure):
-            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
+            print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
 
     @commands.command()
     @commands.has_permissions(administrator=True)
@@ -51,54 +49,44 @@ class Utils(commands.Cog):
 
     @setgame.error
     async def setgame_error(self, ctx, error):
-        print("Erreur dans la requête via !setgame : Pas le bon rôle")
-        if isinstance(error, commands.CheckFailure):
-            await ctx.send("Tu dois être Admin pour utiliser cette commande !")
+        if isinstance(error, commands.MissingPermission):
+            print("Erreur dans la requête via !setgame : Pas le bon rôle")
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
 
     """FIN ADMIN COMMANDE"""
 
-    # situation actuelle
-    @commands.command()
-    async def who(self, ctx):
-        print("Requête de description du bot via !who")
-        await ctx.send(
-            "Je suis Roboris Davin, le bot de ce serveur. Je ne connais absolument pas ce professeur qui aurait un nom similaire.")
-
     @commands.command()
     async def help(self, ctx):
-        print("Requête d'aide via !help")
-        await ctx.send(
-            "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+        await ctx.send("Regarde tes MP", delete_after=MP_DELAY)
+        await ctx.message.author.send(
+            "----------------------------------------------------------------------------------------------------------------------------------------------------\n"
             "|`!arche` - Donne le lien de arche\n"
             "|`!ent` - Donne le lien vers l'ENT\n"
-            "|`!who` - Fait découvir qui est Roboris Davin\n"
             "|`!appel (rôle)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
             "|`!sondage (question)` - Crée un sondage avec comme réponse possible oui ou non\n"
             "|`!sondage_multiple (nombre de réponses) (question)` - Crée un sondage avec plusieurs réponses possibles numéroté (de 1 à 9 à vous de le définir)\n"
-            "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"
+            "----------------------------------------------------------------------------------------------------------------------------------------------------\n"
             )
+        await ctx.message.delete(delay=MP_DELAY)
 
     # commande ! arche
     @commands.command()
     async def arche(self, ctx):
-        print("Requête de lien arche via !arche")
-        await ctx.send("----------------------------------------------------------\n"
-                       "Voici le lien vers Arche : https://cutt.ly/tygWbO6\n"
+        await ctx.send("Regarde tes MP", delete_after=MP_DELAY)
+        await ctx.message.author.send("----------------------------------------------------------\n"
+                       f"Voici le lien vers Arche : {LIEN_ARCHE}\n"
                        "----------------------------------------------------------")
+        await ctx.message.delete(delay=MP_DELAY)
 
     # commande ! ent
     @commands.command()
     async def ent(self, ctx):
-        print("Requête de lien de l'ent via !ent")
-        await ctx.send("----------------------------------------------------------\n"
-                       "Voici le lien vers l'ENT : https://cutt.ly/MygW3Rc\n"
+        await ctx.send("Regarde tes MP", delete_after=MP_DELAY)
+        await ctx.message.author.send("----------------------------------------------------------\n"
+                       f"Voici le lien vers l'ENT : {LIEN_ENT}\n"
                        "----------------------------------------------------------")
-
-    @commands.command()
-    @commands.has_permissions(administrator=True)
-    async def send_gen(self, ctx, *args: str):
-        pass
-
+        await ctx.message.delete(delay=MP_DELAY)
 
 def setup(client):
     client.add_cog(Utils(client))
