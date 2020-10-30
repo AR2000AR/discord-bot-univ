@@ -4,6 +4,7 @@ with open('token','r') as tokenFile:
 
 ROLES_ETU = ["ASRFI","ASRAT"]
 ROLES_PROF = ["Enseignant"]
+ROLE_ADMIN = ["Admin"]
 ANNEE = ["A1"]
 ACTIVITY="LvkwbjjBwmwgwpfvbURQ:cheh"
 LIEN_ENT = "https://ent.univ-lorraine.fr/"
