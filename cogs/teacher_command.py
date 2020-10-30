@@ -25,7 +25,8 @@ class Teacher(commands.Cog):
             server_role.append(role.name)
         for arg in args:
             if arg not in server_role:
-                await ctx.send("Un des rôles en paramètres n'existe pas sur ce serveur !")
+                await ctx.send("Un des rôles en paramètres n'existe pas sur ce serveur !",delete_after=ERROR_DELAY)
+                await ctx.message.delete(delay=ERROR_DELAY)
                 return #on ne veut pas continuer
 
         rolesMembers = []
