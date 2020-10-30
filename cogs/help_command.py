@@ -12,26 +12,6 @@ class Help(commands.Cog):
         await ctx.message.author.send(message)
         await ctx.message.delete(delay=MP_DELAY)
 
-    # commande !helpadmin
-    # @commands.command()
-    # @commands.guild_only()
-    # @commands.has_permissions(administrator=True)
-    # async def helpadmin(self, ctx):
-    #     await self.sendHelpMP(ctx,
-    #         "-----------------------------------------------------------------------------\n"
-    #         "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
-    #         "`!setgame (jeu)` - Change le jeu du bot\n"
-    #         "-----------------------------------------------------------------------------"
-    #         )
-    #
-    # # gestion de l'erreur en cas de non-possesion de master
-    # @helpadmin.error
-    # async def helpadmin_error(self, ctx, error):
-    #     if isinstance(error, commands.CheckFailure):
-    #         print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
-    #         await ctx.send("Tu dois être Admin pour utiliser cette commande !",delete_after=ERROR_DELAY)
-    #         await ctx.message.delete(delay=ERROR_DELAY)
-
     @commands.command()
     @commands.guild_only()
     async def help(self, ctx):
