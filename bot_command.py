@@ -37,8 +37,6 @@ async def on_ready():
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        if(filename.startswith('fun')):
-            continue
         client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(TOKEN)
