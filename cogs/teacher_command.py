@@ -29,10 +29,6 @@ class Teacher(commands.Cog):
                 await ctx.send("Un des rôles en paramètres n'existe pas sur ce serveur !")
                 return #on ne veut pas continuer
 
-        #on recupère la liste des membres des roles
-        #serverRolesName = []
-        #for role in ctx.guild.roles:
-        #    serverRolesName.append(role.name)
         rolesMembers = []
         for member in ctx.guild.members:
             print(member)
@@ -62,7 +58,7 @@ class Teacher(commands.Cog):
     async def appel_error(self, ctx, error):
         if(isinstance(error,commands.MissingAnyRole)):
             await ctx.send("missing role")
-        if(isinstance(error,commands.CheckFailure)):
+        elif(isinstance(error,commands.CheckFailure)):
             await ctx.send("Pas dans un salon vocal")
 
     @commands.command()
