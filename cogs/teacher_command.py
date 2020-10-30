@@ -17,6 +17,7 @@ class Teacher(commands.Cog):
         self.client = client
 
     @commands.command()
+    @commands.guild_only()
     @commands.has_any_role(*ROLES_PROF)
     @commands.check(isVoiceConnect)
     async def appel(self, ctx, *args):
@@ -62,6 +63,7 @@ class Teacher(commands.Cog):
             await ctx.message.delete(delay=ERROR_DELAY)
 
     @commands.command()
+    @commands.guild_only()
     async def sondage_multiple(self, ctx, *args):
         allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
         # On fait la liste des rôles autorisés à utiliser cette commande
@@ -93,6 +95,7 @@ class Teacher(commands.Cog):
             await the_message.add_reaction(emoji_number[i])
 
     @commands.command()
+    @commands.guild_only()
     async def sondage(self, ctx, *args):
         allowed_role = [] # array contenant tous les rôles du serveur pouvant éxécuter la commande
         # On fait la liste des rôles autorisés à utiliser cette commande

@@ -1,0 +1,67 @@
+import discord
+from discord.ext import commands
+from consts import *
+
+class Help(commands.Cog):
+
+    def __init__(self, client):
+        self.client = client
+
+    async def sendHelpMP(self, ctx, message):
+        await ctx.send("Regarde tes MP",delete_after=MP_DELAY)
+        await ctx.message.author.send(message)
+        await ctx.message.delete(delay=MP_DELAY)
+
+    # commande !helpadmin
+    @commands.command()
+    @commands.guild_only()
+    @commands.has_permissions(administrator=True)
+    async def helpadmin(self, ctx):
+        await self.sendHelpMP(ctx,
+            "-----------------------------------------------------------------------------\n"
+            "`!clear (nombre)` - Supprime les messages dans le channel actuelle\n"
+            "`!setgame (jeu)` - Change le jeu du bot\n"
+            "-----------------------------------------------------------------------------"
+            )
+
+    # gestion de l'erreur en cas de non-possesion de master
+    @helpadmin.error
+    async def helpadmin_error(self, ctx, error):
+        if isinstance(error, commands.CheckFailure):
+            print("Erreur dans la requête via !helpadmin : Pas le bon rôle")
+            await ctx.send("Tu dois être Admin pour utiliser cette commande !",delete_after=ERROR_DELAY)
+            await ctx.message.delete(delay=ERROR_DELAY)
+
+    @commands.command()
+    @commands.guild_only()
+    async def help(self, ctx):
+        await self.sendHelpMP(ctx,
+            "----------------------------------------------------------------------------------------------------------------------------------------------------\n"
+            "|`!arche` - Donne le lien de arche\n"
+            "|`!ent` - Donne le lien vers l'ENT\n"
+            "|`!appel (rôle)` - Fait l'appel dans le channel de l'auteur de la commande affiche les présents, les absents, et le nombre d'absents \n"
+            "|`!sondage (question)` - Crée un sondage avec comme réponse possible oui ou non\n"
+            "|`!sondage_multiple (nombre de réponses) (question)` - Crée un sondage avec plusieurs réponses possibles numéroté (de 1 à 9 à vous de le définir)\n"
+            "----------------------------------------------------------------------------------------------------------------------------------------------------\n"
+            )
+
+    # commande ! arche
+    @commands.command()
+    @commands.guild_only()
+    async def arche(self, ctx):
+        await self.sendHelpMP(ctx,
+        "----------------------------------------------------------\n"
+        f"Voici le lien vers Arche : {LIEN_ARCHE}\n"
+        "----------------------------------------------------------")
+
+    # commande ! ent
+    @commands.command()
+    @commands.guild_only()
+    async def ent(self, ctx):
+        await self.sendHelpMP(ctx,
+        "----------------------------------------------------------\n"
+        f"Voici le lien vers l'ENT : {LIEN_ENT}\n"
+        "----------------------------------------------------------")
+
+def setup(client):
+    client.add_cog(Help(client))

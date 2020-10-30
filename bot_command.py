@@ -1,9 +1,7 @@
 # module de base
 import discord
-# import requests
 from discord.ext import commands
 from discord import Intents
-# fonction musicale (os utile que pour ca atm)
 from consts import *
 import os
 
@@ -21,8 +19,8 @@ async def on_command_error(ctx, error):
         print("Erreur dans la requête d'une commande : Commande inconnue")
         await ctx.send("Commande inexistante !",delete_after=ERROR_DELAY)
         await ctx.message.delete(delay=ERROR_DELAY)
-    else:
-        pass
+    elif(isinstance(error, commands.NoPrivateMessage)):
+        await ctx.send("Je ne répond pas aux messages privées")
 
 # notification terminal de connexion
 @client.event
@@ -35,6 +33,7 @@ async def on_ready():
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
+        print(f"Chargement de {filename}")
         client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(TOKEN)
