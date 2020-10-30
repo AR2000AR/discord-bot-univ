@@ -4,21 +4,27 @@ import json
 import discord
 # import requests
 from discord.ext import commands
+from discord import Intents
 # fonction musicale (os utile que pour ca atm)
 from consts import TOKEN, GUILD
 import os
 
-client = commands.Bot(command_prefix='!')
+#Merci à Maxime M pour l'info sur l'intent
+intents = Intents.default()
+intents.members = True
+
+client = commands.Bot(command_prefix='!',intents=intents)
 client.remove_command("help")
 
 # gestion de l'erreur en cas de commande inconnue
 @client.event
 async def on_command_error(ctx, error):
-    print("Erreur dans la requête d'une commande : Commande inconnue")
     if isinstance(error, commands.CommandNotFound):
+        print("Erreur dans la requête d'une commande : Commande inconnue")
         await ctx.send("Commande inexistante !")
     else:
-        raise error
+        pass
+        #raise error
 
 # notification terminal de connexion
 @client.event

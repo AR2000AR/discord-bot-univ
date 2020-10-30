@@ -19,52 +19,6 @@ class Teacher(commands.Cog):
     @commands.command()
     @commands.has_any_role(*ROLES_PROF)
     @commands.check(isVoiceConnect)
-    async def appelabs(self, ctx, *args):
-        "Regarde les membres connectés dans le salon vocal et mentionne les abscents"
-        #On check si les rôles passés en arguments existent sur le serveur
-        server_role = []
-        for role in ctx.guild.roles:
-            server_role.append(role.name)
-        for arg in args:
-            if arg not in server_role:
-                await ctx.send("Un des rôles en paramètres n'existe pas sur ce serveur !")
-                return #on ne veut pas continuer
-
-        #on recupère la liste des membres des roles
-        #serverRolesName = []
-        #for role in ctx.guild.roles:
-        #    serverRolesName.append(role.name)
-        rolesMembers = []
-        for member in ctx.guild.members:
-            print(member)
-            for memberRole in member.roles:
-                print(f'    {memberRole.name}')
-                if(memberRole.name in args):
-                    if(member not in rolesMembers):
-                        rolesMembers.append(member)
-                        break #pas besoin de verifier les autres roles du membre
-
-        message = ""
-        nbAbs = 0
-
-        for member in rolesMembers:
-            if(member not in ctx.message.author.voice.channel.members):
-                print(member)
-                message += f'<@{member.id}> est absent :red_circle:\n'
-                nbAbs+=1
-
-        await ctx.send(f'{message} \n Il y a {nbAbs} absent(s)')
-
-    @appelabs.error
-    async def appelabs_error(self,ctx,error):
-        if(isinstance(error,commands.MissingAnyRole)):
-            await ctx.send("missing role")
-        elif(isinstance(error,commands.CheckFailure)):
-            await ctx.send("Pas dans un salon vocal")
-
-    @commands.command()
-    @commands.has_any_role(*ROLES_PROF)
-    @commands.check(isVoiceConnect)
     async def appel(self, ctx, *args):
         #On check si les rôles passés en arguments existent sur le serveur
         server_role = []
@@ -106,11 +60,10 @@ class Teacher(commands.Cog):
 
     @appel.error
     async def appel_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            print("Erreur de requête via !appel : Manque le groupe en argument")
-            await ctx.send("Tu dois précisez le groupe dont tu veux faire l'appel !")
-        if isinstance(error, commands.MissingAnyRole):
-            await ctx.send("Tu dois être Master ou Professeur pour utiliser cette commande !")
+        if(isinstance(error,commands.MissingAnyRole)):
+            await ctx.send("missing role")
+        if(isinstance(error,commands.CheckFailure)):
+            await ctx.send("Pas dans un salon vocal")
 
     @commands.command()
     async def sondage_multiple(self, ctx, *args):
