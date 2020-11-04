@@ -11,3 +11,10 @@ LIEN_ENT = "https://ent.univ-lorraine.fr/"
 LIEN_ARCHE = "https://arche.univ-lorraine.fr/my"
 MP_DELAY = 10
 ERROR_DELAY = 5
+
+with open('webhookUrls','r') as webhookFile:
+    EDT_WEBHOOK = webhookFile.readlines()
+    EDT_WEBHOOK = list(map(lambda s:s.strip(),EDT_WEBHOOK))
+EDT_REFRESH = 1800 #time to refresh in s
+with open('urlEnt','r') as tokenFile:
+    URL_ENT = tokenFile.readline()
