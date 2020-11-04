@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord import Intents
 from consts import *
 import os
+import webhook
 
 #Merci à Maxime M pour l'info sur l'intent
 intents = Intents.default()
@@ -35,5 +36,8 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         print(f"Chargement de {filename}")
         client.load_extension(f'cogs.{filename[:-3]}')
+
+edt = webhook.Edt(EDT_WEBHOOK,EDT_REFRESH,URL_ENT)
+edt.start()
 
 client.run(TOKEN)
