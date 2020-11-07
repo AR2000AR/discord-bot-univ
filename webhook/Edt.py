@@ -4,6 +4,8 @@ from threading import Thread
 import urllib.request
 import hashlib
 
+HTTP_TIMEOUT = 10
+
 class Edt(Thread):
     _scheduler = None
     _webhook = None
@@ -34,21 +36,23 @@ class Edt(Thread):
 
         #Trucs
         print(f'[{time.asctime(time.localtime())}] Téléchargement du fichier EDT')
-        with urllib.request.urlopen(self._URL_ENT) as f:
-            newedt = f.read().decode('utf-8')
+        try:
+            with urllib.request.urlopen(self._URL_ENT,timeout=HTTP_TIMEOUT) as f:
+                newedt = f.read().decode('utf-8')
+        except:
+            print("\tErreur au téléchargement de l'edt")
+        else:
+            print("\Somme de controle md5 du fichier téléchargé")
+            newcheck = hashlib.md5(newedt.encode()).hexdigest()
+            print(f'\t{newcheck}')
 
-        print("\tEncodage md5 du fichier téléchargé")
-        newcheck = hashlib.md5(newedt.encode()).hexdigest()
-
-        print(f'\t{newcheck}')
-
-        if(newcheck != self._lastcheck):
-            if(self._lastcheck != None):
-                self._webhook.content = "@everyone"
-                embed = DiscordEmbed(title='Emploi du temps',description="L'emploi du temps à changé")
-                self._webhook.add_embed(embed);
-                self._webhook.execute();
-            self._lastcheck = newcheck
+            if(newcheck != self._lastcheck):
+                if(self._lastcheck != None):
+                    self._webhook.content = "@everyone"
+                    embed = DiscordEmbed(title='Emploi du temps',description="L'emploi du temps à changé")
+                    self._webhook.add_embed(embed);
+                    self._webhook.execute();
+                self._lastcheck = newcheck
 
         self._scheduler.enter(self._EDT_REFRESH,1,self._main)
 
