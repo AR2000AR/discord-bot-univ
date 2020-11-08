@@ -42,7 +42,7 @@ class Edt(Thread):
         except:
             print("\tErreur au téléchargement de l'edt")
         else:
-            print("\Somme de controle md5 du fichier téléchargé")
+            print("\tSomme de controle md5 du fichier téléchargé")
             newcheck = hashlib.md5(newedt.encode()).hexdigest()
             print(f'\t{newcheck}')
 
