@@ -22,7 +22,6 @@ class Edt(Thread):
         MENTION = {
             'parse':["everyone"]
         }
-        self._webhook = DiscordWebhook(url=EDT_WEBHOOK,allowed_mentions=MENTION);
 
         self._scheduler = sched.scheduler(time.time,time.sleep)
 
@@ -48,19 +47,20 @@ class Edt(Thread):
 
             if(newcheck != self._lastcheck):
                 if(self._lastcheck != None):
-                    self._webhook.content = "@everyone"
+                    webhook = DiscordWebhook(url=EDT_WEBHOOK,allowed_mentions=MENTION);
+                    webhook.content = "@everyone"
                     embed = DiscordEmbed(title='Emploi du temps',description="L'emploi du temps à changé")
-                    self._webhook.add_embed(embed);
-                    self._webhook.execute();
+                    webhook.add_embed(embed);
+                    webhook.execute();
                 self._lastcheck = newcheck
 
         self._scheduler.enter(self._EDT_REFRESH,1,self._main)
 
     def test_msg(self):
         embed = DiscordEmbed(title='Test',description="Ceci est un test")
-        self._webhook.content="@everyone"
-        self._webhook.add_embed(embed);
-        self._webhook.execute();
+        webhook.content="@everyone"
+        webhook.add_embed(embed);
+        webhook.execute();
 
 if __name__ == '__main__':
     EDT_WEBHOOK = ["https://discordapp.com/api/webhooks/773570005231992844/4kUhrydLzTfNECRl1Nrmo8pJWzbr8iXgUj72zUaJ8kbfTKVDIIg4qr6Vp258bGlafYlJ"]
