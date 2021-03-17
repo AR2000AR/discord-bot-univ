@@ -19,7 +19,7 @@ class Edt(Thread):
         self._EDT_WEBHOOK = EDT_WEBHOOK
         self._EDT_REFRESH = EDT_REFRESH
         self._URL_ENT = URL_ENT
-        MENTION = {
+        self._MENTION = {
             'parse':["everyone"]
         }
 
@@ -47,7 +47,7 @@ class Edt(Thread):
 
             if(newcheck != self._lastcheck):
                 if(self._lastcheck != None):
-                    webhook = DiscordWebhook(url=EDT_WEBHOOK,allowed_mentions=MENTION);
+                    webhook = DiscordWebhook(url=self.EDT_WEBHOOK,allowed_mentions=self._MENTION);
                     webhook.content = "@everyone"
                     embed = DiscordEmbed(title='Emploi du temps',description="L'emploi du temps à changé")
                     webhook.add_embed(embed);
