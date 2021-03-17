@@ -47,7 +47,7 @@ class Edt(Thread):
 
             if(newcheck != self._lastcheck):
                 if(self._lastcheck != None):
-                    webhook = DiscordWebhook(url=self.EDT_WEBHOOK,allowed_mentions=self._MENTION);
+                    webhook = DiscordWebhook(url=self._EDT_WEBHOOK,allowed_mentions=self._MENTION);
                     webhook.content = "@everyone"
                     embed = DiscordEmbed(title='Emploi du temps',description="L'emploi du temps à changé")
                     webhook.add_embed(embed);
